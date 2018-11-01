@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">lib_imagepicker</string>
+    <string name="picker_image_done_count">完成(%1$d/%2$d)</string>
+    <string name="please_select_image">请选择图片</string>
+    <string name="image_and_video">图片和视频</string>
+    <string name="image">图片</string>
+    <string name="all_image">所有图片</string>
+    <string name="image_preview">预览</string>
+    <string name="image_preview_count">预览(%1$d)</string>
+    <string name="select_image_preview">请先选择图片</string>
+    <string name="image_selected_max_count">最多可以选择%1$d张图片</string>
+    <string name="image_select">选择</string>
+    <string name="image_preview_title">%1$d/%2$d</string>
+</resources>

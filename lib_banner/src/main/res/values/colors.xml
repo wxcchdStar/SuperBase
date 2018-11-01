@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="banner_indicator_active">#FFFFFF</color>
+    <color name="banner_indicator_inactive">#67cf00</color>
+
+</resources>

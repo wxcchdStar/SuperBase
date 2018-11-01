@@ -1,0 +1,7 @@
+<resources>
+
+    <string name="common_connection_error">网络连接出错，请检查设置</string>
+    <string name="common_load_next">正在加载数据</string>
+    <string name="common_exit_app">再按一次退出应用</string>
+
+</resources>

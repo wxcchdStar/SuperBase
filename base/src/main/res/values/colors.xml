@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#3c69de</color>
+    <color name="colorPrimaryDark">#3c69de</color>
+    <color name="colorAccent">#3c69de</color>
+
+    <!-- 页面背景色 -->
+    <color name="bg_color">#ffffff</color>
+
+    <color name="bg_pressed">#33969696</color>
+
+</resources>

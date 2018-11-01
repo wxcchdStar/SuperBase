@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <co.tton.android.lib.imagepicker.views.LargeImageViewPager
+        android:layout_width="match_parent"
+        android:id="@+id/view_pager_image"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scaleType="fitXY"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:id="@+id/rl_picker_image_preview"
+        android:background="@color/black_999999"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <CheckBox
+            android:id="@+id/cb_picker_image_preview"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:text="@string/image_select"
+            android:textColor="@android:color/white"
+            android:button="@drawable/btn_image_cb" />
+
+    </RelativeLayout>
+
+</LinearLayout>

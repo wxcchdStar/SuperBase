@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fl_banner"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <co.tton.android.lib.banner.BannerFlipper
+        android:id="@+id/vf_banner_player"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <co.tton.android.lib.banner.BannerIndicator
+        android:id="@+id/indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="10dp"
+        app:activeColor="@color/banner_indicator_active"
+        app:inactiveColor="@color/banner_indicator_inactive"
+        app:radius="3dp"
+        app:spacing="8dp" />
+
+</FrameLayout>

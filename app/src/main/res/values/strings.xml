@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">SuperBase</string>
+    <string name="main_app">APP</string>
+    <string name="main_picture_preview">图片预览</string>
+    <string name="main_scan_qrcode">扫描二维码</string>
+</resources>
