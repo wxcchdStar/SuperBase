@@ -12,6 +12,7 @@ public abstract class BaseLazyLoadFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mIsViewInitiated = true;
+        mIsDataInitiated = false;
         if (getUserVisibleHint() && !mIsDataInitiated) {
             initData();
         }
