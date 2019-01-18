@@ -44,7 +44,7 @@ public class ImagePickerAdapter extends BaseQuickAdapter<String> {
             imageIv.setImageResource(R.drawable.ic_take_photo);
             selectIv.setVisibility(View.GONE);
         } else {
-            ImageLoader.get().load(imageIv, data, wxc.android.base.R.drawable.img_default);
+            ImageLoader.get().load(imageIv, data);
 
             selectIv.setVisibility(View.VISIBLE);
             selectIv.setSelected(mSelectedImageList.contains(data));

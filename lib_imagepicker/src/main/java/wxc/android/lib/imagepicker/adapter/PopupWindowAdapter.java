@@ -32,7 +32,7 @@ public class PopupWindowAdapter extends BaseQuickAdapter<ImageFolder> {
         TextView folderSizeTv = holder.findViewById(R.id.tv_image_count);
         TextView folderSelTv = holder.findViewById(R.id.tv_select_folder);
 
-        ImageLoader.get().load(folderImageIv, data.mCoverPath, wxc.android.base.R.drawable.img_default);
+        ImageLoader.get().load(folderImageIv, data.mCoverPath);
         folderNameTv.setText(data.mName);
         folderSizeTv.setText(String.valueOf(data.mPhotoList.size()));
         if (mCurrentSelectedFolder.mId.equals(data.mId)) {

@@ -25,7 +25,6 @@ public class LargeImageViewPager extends ViewPager {
                 return super.onInterceptTouchEvent(ev);
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
-                return false;
             }
         }
         return false;
@@ -37,18 +36,6 @@ public class LargeImageViewPager extends ViewPager {
             return super.onTouchEvent(event);
         }
         return false;
-    }
-
-    public void toggleLock() {
-        isLocked = !isLocked;
-    }
-
-    public void setLocked(boolean isLocked) {
-        this.isLocked = isLocked;
-    }
-
-    public boolean isLocked() {
-        return isLocked;
     }
 
 }

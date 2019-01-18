@@ -8,10 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import androidx.loader.app.LoaderManager;
-import androidx.loader.content.Loader;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,8 +18,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import io.reactivex.disposables.Disposable;
 import wxc.android.base.app.activity.BaseActivity;
 import wxc.android.base.manager.RxBus;
+import wxc.android.base.rx.SimpleObserver;
 import wxc.android.base.utils.V;
 import wxc.android.base.view.ToastUtils;
 import wxc.android.lib.imagepicker.ImagePicker;
@@ -36,7 +40,6 @@ import wxc.android.lib.imagepicker.utils.FileUtils;
 import wxc.android.lib.imagepicker.utils.PhotoDirectoryLoader;
 import wxc.android.lib.imagepicker.views.GridItemDecoration;
 import wxc.android.lib.imagepicker.views.ListPopupWindow;
-import rx.Observer;
 
 import static android.provider.BaseColumns._ID;
 import static android.provider.MediaStore.Images.ImageColumns.BUCKET_DISPLAY_NAME;
@@ -74,6 +77,9 @@ public class ImagePickerActivity extends BaseActivity implements View.OnClickLis
             mTakePhotoPath = savedInstanceState.getString(ARGS_TAKE_PHOTO_PATH);
         } else {
             bundle = getIntent().getExtras();
+        }
+        if (bundle == null) {
+            bundle = new Bundle();
         }
         mShowGif = bundle.getBoolean(ImagePicker.EXTRA_SHOW_GIF, false);
         mShowVideo = bundle.getBoolean(ImagePicker.EXTRA_SHOW_VIDEO, false);
@@ -114,7 +120,7 @@ public class ImagePickerActivity extends BaseActivity implements View.OnClickLis
         mImagePickerAdapter = new ImagePickerAdapter(this, mSelectedImageList, mShowPreview, mMaxSelectedCount);
         imageRv.setAdapter(mImagePickerAdapter);
         //加载图片
-        getSupportLoaderManager().initLoader(0, bundle, this);
+        LoaderManager.getInstance(this).initLoader(0, bundle, this);
     }
 
     @Override
@@ -124,16 +130,12 @@ public class ImagePickerActivity extends BaseActivity implements View.OnClickLis
 
     private void receiveRxBus() {
         //更新图片列表
-        addDisposable(RxBus.get().toObservable(PopupWindowAdapter.UpdateShowImageListEvent.class)
-                .subscribe(new Observer<PopupWindowAdapter.UpdateShowImageListEvent>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
+        RxBus.get().toObservable(PopupWindowAdapter.UpdateShowImageListEvent.class)
+                .subscribe(new SimpleObserver<PopupWindowAdapter.UpdateShowImageListEvent>() {
 
                     @Override
-                    public void onError(Throwable e) {
-
+                    public void onSubscribe(Disposable d) {
+                        addDisposable(d);
                     }
 
                     @Override
@@ -146,18 +148,15 @@ public class ImagePickerActivity extends BaseActivity implements View.OnClickLis
 
                         mSelectedFolderTv.setText(event.mFolder.mName);
                     }
-                }));
+
+                });
         //更新预览数量
-        addDisposable(RxBus.get().toObservable(ImagePickerAdapter.UpdatePreviewCountEvent.class)
-                .subscribe(new Observer<ImagePickerAdapter.UpdatePreviewCountEvent>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
+        RxBus.get().toObservable(ImagePickerAdapter.UpdatePreviewCountEvent.class)
+                .subscribe(new SimpleObserver<ImagePickerAdapter.UpdatePreviewCountEvent>() {
 
                     @Override
-                    public void onError(Throwable e) {
-
+                    public void onSubscribe(Disposable d) {
+                        addDisposable(d);
                     }
 
                     @Override
@@ -170,7 +169,7 @@ public class ImagePickerActivity extends BaseActivity implements View.OnClickLis
                             setPreviewViewText(updatePreviewCountEvent.mPreviewCount);
                         }
                     }
-                }));
+                });
     }
 
     private void takePhoto() {
@@ -230,7 +229,9 @@ public class ImagePickerActivity extends BaseActivity implements View.OnClickLis
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQ_TAKE_PHOTO && resultCode == RESULT_OK) {
             //拍照返回
-            if (data != null && data.getDataString() != null) return;
+            if (data != null && data.getDataString() != null) {
+                return;
+            }
             insertImage(getContentResolver());
         } else if (requestCode == ImagePreview.REQUEST_CODE && resultCode == ImagePreviewActivity.RESULT_DONE) {
             //预览页点击完成
@@ -291,13 +292,14 @@ public class ImagePickerActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
+    @NonNull
     @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new PhotoDirectoryLoader(this, args.getBoolean(ImagePicker.EXTRA_SHOW_GIF, false));
+    public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
+        return new PhotoDirectoryLoader(this, args != null && args.getBoolean(ImagePicker.EXTRA_SHOW_GIF, false));
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
         if (data == null) return;
 
         HashMap<String, ImageFolder> folderMap = new HashMap<>();
@@ -345,7 +347,7 @@ public class ImagePickerActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
 
     }
 }

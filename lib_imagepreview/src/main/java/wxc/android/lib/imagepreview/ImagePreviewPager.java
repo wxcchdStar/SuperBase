@@ -26,7 +26,6 @@ public class ImagePreviewPager extends ViewPager {
                 return super.onInterceptTouchEvent(ev);
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
-                return false;
             }
         }
         return false;

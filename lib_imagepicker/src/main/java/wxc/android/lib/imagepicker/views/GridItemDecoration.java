@@ -2,6 +2,8 @@ package wxc.android.lib.imagepicker.views;
 
 import android.content.Context;
 import android.graphics.Rect;
+
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
@@ -17,8 +19,11 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+    public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         GridLayoutManager layoutManager = (GridLayoutManager) parent.getLayoutManager();
+        if (layoutManager == null) {
+            return;
+        }
         int spanCount = layoutManager.getSpanCount();
         int position = parent.getChildLayoutPosition(view);
         outRect.top = mSpace;
@@ -32,5 +37,4 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
             outRect.right = mSpace;
         }
     }
-
 }
