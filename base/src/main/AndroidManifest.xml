@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="co.tton.android.base">
+    package="wxc.android.base">
 
     <application
         android:allowBackup="true"

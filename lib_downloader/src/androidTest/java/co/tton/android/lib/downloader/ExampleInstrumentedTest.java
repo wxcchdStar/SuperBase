@@ -1,4 +1,4 @@
-package co.tton.android.lib.downloader;
+package wxc.android.lib.downloader;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("co.tton.android.lib.downloader.test", appContext.getPackageName());
+        assertEquals("wxc.android.lib.downloader.test", appContext.getPackageName());
     }
 }

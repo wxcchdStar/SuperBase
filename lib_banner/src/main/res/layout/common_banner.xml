@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <co.tton.android.lib.banner.BannerFlipper
+    <wxc.android.lib.banner.BannerFlipper
         android:id="@+id/vf_banner_player"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <co.tton.android.lib.banner.BannerIndicator
+    <wxc.android.lib.banner.BannerIndicator
         android:id="@+id/indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

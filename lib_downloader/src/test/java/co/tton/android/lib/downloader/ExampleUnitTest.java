@@ -1,4 +1,4 @@
-package co.tton.android.lib.downloader;
+package wxc.android.lib.downloader;
 
 import org.junit.Test;
 

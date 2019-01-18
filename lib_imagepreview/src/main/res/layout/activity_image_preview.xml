@@ -5,12 +5,12 @@
     android:layout_height="match_parent"
     android:background="@android:color/black">
 
-    <co.tton.android.lib.imagepreview.ImagePreviewPager
+    <wxc.android.lib.imagepreview.ImagePreviewPager
         android:id="@+id/vp_preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <co.tton.android.lib.imagepreview.ImagePreviewIndicator
+    <wxc.android.lib.imagepreview.ImagePreviewIndicator
         android:id="@+id/indicator"
         android:layout_width="wrap_content"
         android:layout_height="32dp"
