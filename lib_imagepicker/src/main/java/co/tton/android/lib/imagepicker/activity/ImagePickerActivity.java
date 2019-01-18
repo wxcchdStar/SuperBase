@@ -8,10 +8,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -124,7 +124,7 @@ public class ImagePickerActivity extends BaseActivity implements View.OnClickLis
 
     private void receiveRxBus() {
         //更新图片列表
-        addSubscription(RxBus.get().toObservable(PopupWindowAdapter.UpdateShowImageListEvent.class)
+        addDisposable(RxBus.get().toObservable(PopupWindowAdapter.UpdateShowImageListEvent.class)
                 .subscribe(new Observer<PopupWindowAdapter.UpdateShowImageListEvent>() {
                     @Override
                     public void onCompleted() {
@@ -148,7 +148,7 @@ public class ImagePickerActivity extends BaseActivity implements View.OnClickLis
                     }
                 }));
         //更新预览数量
-        addSubscription(RxBus.get().toObservable(ImagePickerAdapter.UpdatePreviewCountEvent.class)
+        addDisposable(RxBus.get().toObservable(ImagePickerAdapter.UpdatePreviewCountEvent.class)
                 .subscribe(new Observer<ImagePickerAdapter.UpdatePreviewCountEvent>() {
                     @Override
                     public void onCompleted() {

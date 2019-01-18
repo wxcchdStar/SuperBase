@@ -1,4 +1,4 @@
-package co.tton.android.base.api;
+package co.tton.android.base.api.progress;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -6,8 +6,8 @@ import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
 
-public class ProgressDialogHandler extends Handler {
 
+public class ProgressDialogHandler extends Handler {
     public static final int SHOW_PROGRESS_DIALOG = 1;
     public static final int DISMISS_PROGRESS_DIALOG = 2;
 
@@ -15,13 +15,13 @@ public class ProgressDialogHandler extends Handler {
 
     private Context mContext;
     private boolean mCancelable;
-    private ProgressCancelListener mProgressCancelListener;
+    private ProgressDismissListener mProgressCancelListener;
 
-    public ProgressDialogHandler(Context context, ProgressCancelListener listener) {
+    public ProgressDialogHandler(Context context, ProgressDismissListener listener) {
         this(context, listener, false);
     }
 
-    public ProgressDialogHandler(Context context, ProgressCancelListener listener, boolean cancelable) {
+    public ProgressDialogHandler(Context context, ProgressDismissListener listener, boolean cancelable) {
         mContext = context;
         mProgressCancelListener = listener;
         mCancelable = cancelable;
@@ -33,21 +33,21 @@ public class ProgressDialogHandler extends Handler {
             mDialog.setCancelable(mCancelable);
 
             if (mCancelable) {
-                mDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                mDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
-                    public void onCancel(DialogInterface dialogInterface) {
-                        mProgressCancelListener.onCancelProgress();
+                    public void onDismiss(DialogInterface dialog) {
+                        mProgressCancelListener.onDismissProgress();
                     }
                 });
             }
 
             try {
-                // fix: BadTokenException, Unable to add window -- token android.os.BinderProxy@44fbe5f is not valid;
-                // is your activity running?
                 if (!mDialog.isShowing()) {
                     mDialog.show();
                 }
             } catch (Exception e) {
+                // fix: BadTokenException, Unable to add window -- token android.os.BinderProxy@44fbe5f is not valid;
+                // is your activity running?
                 e.printStackTrace();
             }
         }
@@ -56,9 +56,9 @@ public class ProgressDialogHandler extends Handler {
     private void dismissProgressDialog() {
         if (mDialog != null) {
             try {
-                // fix: IllegalArgumentException, not attached to window manager
                 mDialog.dismiss();
             } catch (Exception e) {
+                // fix: IllegalArgumentException, not attached to window manager
                 e.printStackTrace();
             }
             mDialog = null;
@@ -77,7 +77,7 @@ public class ProgressDialogHandler extends Handler {
         }
     }
 
-    public interface ProgressCancelListener {
-        void onCancelProgress();
+    public interface ProgressDismissListener {
+        void onDismissProgress();
     }
 }

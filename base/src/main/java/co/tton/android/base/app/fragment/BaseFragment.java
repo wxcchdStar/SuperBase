@@ -2,30 +2,30 @@ package co.tton.android.base.app.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import co.tton.android.base.app.presenter.linker.FragmentLinker;
-import co.tton.android.base.manager.CompositeSubscriptionHelper;
-import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
+import co.tton.android.base.manager.CompositeDisposableHelper;
+import io.reactivex.disposables.Disposable;
 
 public abstract class BaseFragment extends Fragment {
 
     private FragmentLinker mLinker = new FragmentLinker();
 
-    private CompositeSubscriptionHelper mCompositeSubscriptionHelper;
+    private CompositeDisposableHelper mCompositeSubscriptionHelper;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mLinker.register(this);
         mLinker.onAttach(context);
-        mCompositeSubscriptionHelper = CompositeSubscriptionHelper.newInstance();
+        mCompositeSubscriptionHelper = CompositeDisposableHelper.newInstance();
     }
 
     @Override
@@ -78,7 +78,7 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         mLinker.onDestroyView();
-        mCompositeSubscriptionHelper.unsubscribe();
+        mCompositeSubscriptionHelper.unDispose();
     }
 
     @Override
@@ -102,13 +102,13 @@ public abstract class BaseFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         mLinker.onSaveInstanceState(outState);
     }
 
-    public void addSubscription(Subscription subscription) {
-        mCompositeSubscriptionHelper.addSubscription(subscription);
+    public void addDisposable(Disposable disposable) {
+        mCompositeSubscriptionHelper.addDispose(disposable);
     }
 
 }

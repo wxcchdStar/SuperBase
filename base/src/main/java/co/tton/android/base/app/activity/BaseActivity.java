@@ -2,8 +2,9 @@ package co.tton.android.base.app.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.jaeger.library.StatusBarUtil;
@@ -11,10 +12,10 @@ import com.jaeger.library.StatusBarUtil;
 import co.tton.android.base.R;
 import co.tton.android.base.app.presenter.BaseActivityPresenter;
 import co.tton.android.base.app.presenter.linker.ActivityLinker;
-import co.tton.android.base.manager.CompositeSubscriptionHelper;
+import co.tton.android.base.manager.CompositeDisposableHelper;
 import co.tton.android.base.utils.V;
 import co.tton.android.base.utils.ValueUtils;
-import rx.Subscription;
+import io.reactivex.disposables.Disposable;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -24,19 +25,19 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private ActivityLinker mLinker = new ActivityLinker();
 
-    private CompositeSubscriptionHelper mCompositeSubscriptionHelper;
+    private CompositeDisposableHelper mCompositeSubscriptionHelper;
 
     private boolean mIsHasStatusBarColor = true;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
 
         mLinker.register(this);
         mLinker.onCreate(savedInstanceState);
 
-        mCompositeSubscriptionHelper = CompositeSubscriptionHelper.newInstance();
+        mCompositeSubscriptionHelper = CompositeDisposableHelper.newInstance();
 
         if (mIsHasStatusBarColor) {
             StatusBarUtil.setColor(this, ValueUtils.getColor(this, R.color.colorPrimary), 0);
@@ -75,7 +76,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         mDestroyed = true;
         super.onDestroy();
         mLinker.onDestroy();
-        mCompositeSubscriptionHelper.unsubscribe();
+        mCompositeSubscriptionHelper.unDispose();
     }
 
     @Override
@@ -103,6 +104,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         mLinker.onActivityResult(requestCode, resultCode, data);
     }
 
+    protected abstract int getLayoutId();
+
     private void initToolbar() {
         mToolbar = V.f(this, R.id.toolbar);
         if (mToolbar != null) {
@@ -117,8 +120,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         return mDestroyed || isFinishing();
     }
 
-    protected abstract int getLayoutId();
-
     protected void setIsHasStatusBarColor(boolean b) {
         mIsHasStatusBarColor = b;
     }
@@ -127,8 +128,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         mLinker.addActivityCallbacks(presenter);
     }
 
-    public void addSubscription(Subscription subscription) {
-        mCompositeSubscriptionHelper.addSubscription(subscription);
+    public void addDisposable(Disposable disposable) {
+        mCompositeSubscriptionHelper.addDispose(disposable);
     }
 
     public static boolean isAvailable(BaseActivity activity) {

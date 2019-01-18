@@ -4,10 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
+import androidx.fragment.app.Fragment;
 import co.tton.android.lib.imagepicker.activity.ImagePreviewActivity;
 
 public class ImagePreview {
@@ -34,7 +35,7 @@ public class ImagePreview {
         activity.startActivityForResult(getIntent(activity), REQUEST_CODE);
     }
 
-    public void start(@NonNull Context context, @NonNull android.support.v4.app.Fragment fragment) {
+    public void start(@NonNull Context context, @NonNull Fragment fragment) {
         fragment.startActivityForResult(getIntent(context), REQUEST_CODE);
     }
 

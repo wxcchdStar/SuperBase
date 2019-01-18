@@ -1,9 +1,9 @@
 package co.tton.android.base.app.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +67,7 @@ public abstract class BaseListFragment<T> extends BaseLazyLoadFragment {
     }
 
     protected void setRecyclerView(RecyclerView recyclerView) {
-
+        // set recyclerView config
     }
 
     protected abstract BaseQuickAdapter<T> initAdapter();

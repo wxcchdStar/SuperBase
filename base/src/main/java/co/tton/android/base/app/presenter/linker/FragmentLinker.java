@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import co.tton.android.base.app.fragment.BaseFragment;
 import co.tton.android.base.app.presenter.BaseFragmentPresenter;
 import co.tton.android.base.app.presenter.Presenter;
+import timber.log.Timber;
 
 public class FragmentLinker extends BaseFragmentPresenter {
 
@@ -34,6 +35,7 @@ public class FragmentLinker extends BaseFragmentPresenter {
     public void register(BaseFragment source) {
         Class<?> clazz = source.getClass();
         do {
+            if (clazz == null) break;
             registerClass(source, clazz);
             clazz = clazz.getSuperclass();
         } while (clazz != BaseFragment.class);
@@ -41,26 +43,22 @@ public class FragmentLinker extends BaseFragmentPresenter {
 
     private void registerClass(BaseFragment obj, Class<?> clazz) {
         Field[] fields = clazz.getDeclaredFields();
-        if (fields != null) {
-            for (Field field : fields) {
-                field.setAccessible(true);
-                Annotation[] annotations = field.getAnnotations();
-                if (annotations != null) {
-                    for (Annotation annotation : annotations) {
-                        if (annotation instanceof Presenter) {
-                            try {
-                                BaseFragmentPresenter presenter = (BaseFragmentPresenter) field.get(obj);
-                                presenter.setFragment(obj);
-                                addFragmentCallbacks(presenter);
-                            } catch (IllegalAccessException e) {
-                                e.printStackTrace();
-                            }
-                            break;
-                        }
+        for (Field field : fields) {
+            field.setAccessible(true);
+            Annotation[] annotations = field.getAnnotations();
+            for (Annotation annotation : annotations) {
+                if (annotation instanceof Presenter) {
+                    try {
+                        BaseFragmentPresenter presenter = (BaseFragmentPresenter) field.get(obj);
+                        presenter.setFragment(obj);
+                        addFragmentCallbacks(presenter);
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
                     }
+                    break;
                 }
-                field.setAccessible(false);
             }
+            field.setAccessible(false);
         }
     }
 
@@ -157,36 +155,47 @@ public class FragmentLinker extends BaseFragmentPresenter {
             if (callbacks != null) {
                 switch (level) {
                     case ON_ATTACH:
+                        Timber.d("onAttach: %s", callbacks);
                         callbacks.onAttach((Context) object);
                         break;
                     case ON_CREATE:
+                        Timber.d("onCreate: %s", callbacks);
                         callbacks.onCreate((Bundle) object);
                         break;
                     case ON_CREATE_VIEW:
+                        Timber.d("initContentView: %s", callbacks);
                         callbacks.initContentView((View) object);
                         break;
                     case ON_ACTIVITY_CREATED:
+                        Timber.d("onActivityCreated: %s", callbacks);
                         callbacks.onActivityCreated((Bundle) object);
                         break;
                     case ON_START:
+                        Timber.d("onStart: %s", callbacks);
                         callbacks.onStart();
                         break;
                     case ON_RESUME:
+                        Timber.d("onResume: %s", callbacks);
                         callbacks.onResume();
                         break;
                     case ON_PAUSE:
+                        Timber.d("onPause: %s", callbacks);
                         callbacks.onPause();
                         break;
                     case ON_STOP:
+                        Timber.d("onStop: %s", callbacks);
                         callbacks.onStop();
                         break;
                     case ON_DESTROY_VIEW:
-                        callbacks.onDestroy();
+                        Timber.d("onDestroyView: %s", callbacks);
+                        callbacks.onDestroyView();
                         break;
                     case ON_DESTROY:
+                        Timber.d("onDestroy: %s", callbacks);
                         callbacks.onDestroy();
                         break;
                     case ON_SAVE_STATE:
+                        Timber.d("onSaveInstanceState: %s", callbacks);
                         callbacks.onSaveInstanceState((Bundle) object);
                         break;
                     default:

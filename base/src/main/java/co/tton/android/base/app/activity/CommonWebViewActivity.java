@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
@@ -82,7 +82,6 @@ public class CommonWebViewActivity extends BaseActivity {
         mWebView.setBackgroundColor(Color.WHITE);
         mWebView.setHorizontalScrollBarEnabled(false);
         mWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-
         mWebView.setWebChromeClient(new WebBrowserClient());
         // 设置WebViewClient防止跳转
         mWebView.setWebViewClient(new WebViewClient() {
@@ -107,11 +106,19 @@ public class CommonWebViewActivity extends BaseActivity {
     }
 
     private final class WebBrowserClient extends WebChromeClient {
+
+        private int mCurrentProgress;
+
+        WebBrowserClient() {
+            resetProgress();
+        }
+
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
-            super.onProgressChanged(view, newProgress);
-
-            if (newProgress == 100) {
+            if (newProgress > mCurrentProgress) {
+                mCurrentProgress = newProgress;
+            }
+            if (mCurrentProgress > 90) {
                 mProgressBar.setVisibility(View.GONE);
             } else {
                 mProgressBar.setVisibility(View.VISIBLE);
@@ -126,5 +133,12 @@ public class CommonWebViewActivity extends BaseActivity {
                 setTitle(title);
             }
         }
+
+        void resetProgress() {
+            mCurrentProgress = 10;
+            mProgressBar.setProgress(mCurrentProgress);
+            mProgressBar.setVisibility(View.VISIBLE);
+        }
+
     }
 }

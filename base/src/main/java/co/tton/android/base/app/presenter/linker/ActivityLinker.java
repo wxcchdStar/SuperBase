@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import co.tton.android.base.app.activity.BaseActivity;
 import co.tton.android.base.app.presenter.BaseActivityPresenter;
 import co.tton.android.base.app.presenter.Presenter;
+import timber.log.Timber;
 
 public class ActivityLinker extends BaseActivityPresenter {
 
@@ -28,6 +29,7 @@ public class ActivityLinker extends BaseActivityPresenter {
     public void register(BaseActivity source) {
         Class<?> clazz = source.getClass();
         do {
+            if (clazz == null) break;
             registerClass(source, clazz);
             clazz = clazz.getSuperclass();
         } while (clazz != BaseActivity.class);
@@ -35,26 +37,22 @@ public class ActivityLinker extends BaseActivityPresenter {
 
     private void registerClass(BaseActivity obj, Class<?> clazz) {
         Field[] fields = clazz.getDeclaredFields();
-        if (fields != null) {
-            for (Field field : fields) {
-                field.setAccessible(true);
-                Annotation[] annotations = field.getAnnotations();
-                if (annotations != null) {
-                    for (Annotation annotation : annotations) {
-                        if (annotation instanceof Presenter) {
-                            try {
-                                BaseActivityPresenter presenter = (BaseActivityPresenter) field.get(obj);
-                                presenter.setActivity(obj);
-                                addActivityCallbacks(presenter);
-                            } catch (IllegalAccessException e) {
-                                e.printStackTrace();
-                            }
-                            break;
-                        }
+        for (Field field : fields) {
+            field.setAccessible(true);
+            Annotation[] annotations = field.getAnnotations();
+            for (Annotation annotation : annotations) {
+                if (annotation instanceof Presenter) {
+                    try {
+                        BaseActivityPresenter presenter = (BaseActivityPresenter) field.get(obj);
+                        presenter.setActivity(obj);
+                        addActivityCallbacks(presenter);
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
                     }
+                    break;
                 }
-                field.setAccessible(false);
             }
+            field.setAccessible(false);
         }
     }
 
@@ -132,24 +130,31 @@ public class ActivityLinker extends BaseActivityPresenter {
             if (callbacks != null) {
                 switch (level) {
                     case ON_CREATE:
+                        Timber.d("onCreate: %s", callbacks);
                         callbacks.onCreate(savedInstanceState);
                         break;
                     case ON_START:
+                        Timber.d("onStart: %s", callbacks);
                         callbacks.onStart();
                         break;
                     case ON_RESUME:
+                        Timber.d("onResume: %s", callbacks);
                         callbacks.onResume();
                         break;
                     case ON_PAUSE:
+                        Timber.d("onPause: %s", callbacks);
                         callbacks.onPause();
                         break;
                     case ON_STOP:
+                        Timber.d("onStop: %s", callbacks);
                         callbacks.onStop();
                         break;
                     case ON_DESTROY:
+                        Timber.d("onDestroy: %s", callbacks);
                         callbacks.onDestroy();
                         break;
                     case ON_SAVE_STATE:
+                        Timber.d("onSaveInstanceState: %s", callbacks);
                         callbacks.onSaveInstanceState(savedInstanceState);
                         break;
                     default:

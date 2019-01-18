@@ -1,35 +1,33 @@
 package co.tton.android.base.api;
 
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.ObservableTransformer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import wxc.android.logwriter.L;
 
-public class ApiTransformer<T> implements Observable.Transformer<ApiResult<T>, T> {
+public class ApiTransformer<T> implements ObservableTransformer<ApiResult<T>, T> {
 
-    @SuppressWarnings("unchecked")
     @Override
-    public Observable<T> call(Observable<ApiResult<T>> observable) {
+    public ObservableSource<T> apply(Observable<ApiResult<T>> observable) {
         return observable
-                .map(new Func1<ApiResult<T>, T>() {
+                .map(new Function<ApiResult<T>, T>() {
                     @Override
-                    public T call(ApiResult<T> apiResult) {
+                    public T apply(ApiResult<T> apiResult) {
                         if (apiResult.isOk()) {
-                            if (apiResult.mData instanceof String) {
-                                return (T) apiResult.mMessage;
-                            }
                             return apiResult.mData;
                         }
-                        throw new ApiResultException("", apiResult.mMessage);
+                        throw new ApiResultException(apiResult.mCode, apiResult.mMessage);
                     }
                 })
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .onErrorReturn(new Func1<Throwable, T>() {
+                .onErrorReturn(new Function<Throwable, T>() {
                     @Override
-                    public T call(Throwable throwable) {
+                    public T apply(Throwable throwable) {
                         L.e(throwable);
 
                         if (throwable instanceof Exception) {

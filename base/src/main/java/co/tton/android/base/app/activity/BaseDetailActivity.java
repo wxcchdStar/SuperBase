@@ -1,19 +1,20 @@
 package co.tton.android.base.app.activity;
 
 import android.os.Bundle;
+import androidx.annotation.Nullable;
 import android.view.View;
 
 import co.tton.android.base.R;
 import co.tton.android.base.utils.V;
 import co.tton.android.base.view.CommonLayout;
-import rx.Subscription;
+import io.reactivex.disposables.Disposable;
 
 public abstract class BaseDetailActivity extends BaseActivity {
 
     protected CommonLayout mCommonLayout;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mCommonLayout = V.f(this, R.id.common_layout);
@@ -36,9 +37,8 @@ public abstract class BaseDetailActivity extends BaseActivity {
 
     private void requestDetail() {
         mCommonLayout.showLoading();
-        Subscription subscription = getDetailRequest();
-        addSubscription(subscription);
+        addDisposable(getDetailRequest());
     }
 
-    protected abstract Subscription getDetailRequest();
+    protected abstract Disposable getDetailRequest();
 }

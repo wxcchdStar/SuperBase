@@ -4,9 +4,9 @@ import java.util.List;
 
 import co.tton.android.base.api.ApiResult;
 import co.tton.android.base.api.RxApiClient;
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import rx.Observable;
 
 public class Api {
 
@@ -15,7 +15,7 @@ public class Api {
     private InternalApi mApi;
 
     private Api() {
-        RxApiClient apiClient = RxApiClient.create("https://api.douban.com/v2");
+        RxApiClient apiClient = RxApiClient.create("https://api.douban.com/v2/");
         mApi = apiClient.createApi(InternalApi.class);
     }
 

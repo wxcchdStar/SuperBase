@@ -4,20 +4,16 @@ import com.google.gson.annotations.SerializedName;
 
 public class ApiResult<T> {
 
-    @SerializedName("issuccess")
-    public boolean mStatus;
+    @SerializedName("code")
+    public int mCode;
 
     @SerializedName("message")
     public String mMessage;
 
-    @SerializedName("books")
+    @SerializedName("data")
     public T mData;
 
-    @SerializedName("datacount")
-    public int mDataCount;
-
     public boolean isOk() {
-        return mStatus;
+        return mCode == 0;
     }
-
 }

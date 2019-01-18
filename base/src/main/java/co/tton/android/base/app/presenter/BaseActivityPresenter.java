@@ -5,21 +5,21 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import co.tton.android.base.app.activity.BaseActivity;
-import co.tton.android.base.manager.CompositeSubscriptionHelper;
-import rx.Subscription;
+import co.tton.android.base.manager.CompositeDisposableHelper;
+import io.reactivex.disposables.Disposable;
 
 public class BaseActivityPresenter {
 
     protected BaseActivity mActivity;
 
-    private CompositeSubscriptionHelper mCompositeSubscriptionHelper;
+    private CompositeDisposableHelper mCompositeSubscriptionHelper;
 
     public void setActivity(BaseActivity activity) {
         mActivity = activity;
     }
 
     public void onCreate(Bundle savedInstanceState) {
-        mCompositeSubscriptionHelper = CompositeSubscriptionHelper.newInstance();
+        mCompositeSubscriptionHelper = CompositeDisposableHelper.newInstance();
     }
 
     public void onStart() {
@@ -39,7 +39,7 @@ public class BaseActivityPresenter {
     }
 
     public void onDestroy() {
-        mCompositeSubscriptionHelper.unsubscribe();
+        mCompositeSubscriptionHelper.unDispose();
     }
 
     public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -54,7 +54,7 @@ public class BaseActivityPresenter {
 
     }
 
-    public void addSubscription(Subscription subscription) {
-        mCompositeSubscriptionHelper.addSubscription(subscription);
+    public void addDisposable(Disposable disposable) {
+        mCompositeSubscriptionHelper.addDispose(disposable);
     }
 }

@@ -12,8 +12,8 @@ import android.view.animation.AnimationUtils;
 import java.util.List;
 
 import co.tton.android.base.utils.V;
-import rx.Subscription;
-import rx.functions.Action1;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 public abstract class BaseBannerPresenter implements Animation.AnimationListener, View.OnClickListener {
     private static final int FLIP_INTERVAL = 3000; // 3s
@@ -136,7 +136,7 @@ public abstract class BaseBannerPresenter implements Animation.AnimationListener
         }
     }
 
-    protected abstract Subscription requestBanner(Action1<List<BannerBean>> success, Action1<Throwable> failed);
+    protected abstract Disposable requestBanner(Consumer<List<BannerBean>> success, Consumer<Throwable> failed);
 
     protected abstract int[] getBannerSize();
 
@@ -146,10 +146,10 @@ public abstract class BaseBannerPresenter implements Animation.AnimationListener
 
     protected abstract void setBanner(ViewGroup flipper, List<BannerBean> banners);
 
-    protected Action1<List<BannerBean>> mSuccess = new Action1<List<BannerBean>>() {
+    protected Consumer<List<BannerBean>> mSuccess = new Consumer<List<BannerBean>>() {
 
         @Override
-        public void call(List<BannerBean> banners) {
+        public void accept(List<BannerBean> banners) {
             mBanners = banners;
 
             if (banners != null && !banners.isEmpty()) {
@@ -184,9 +184,10 @@ public abstract class BaseBannerPresenter implements Animation.AnimationListener
         }
     };
 
-    protected Action1<Throwable> mFailed = new Action1<Throwable>() {
+    protected Consumer<Throwable> mFailed = new Consumer<Throwable>() {
+
         @Override
-        public void call(Throwable throwable) {
+        public void accept(Throwable throwable) {
             mContentView.setVisibility(View.GONE);
             throwable.printStackTrace();
         }

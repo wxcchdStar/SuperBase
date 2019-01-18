@@ -1,12 +1,11 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.antfortune.freeline'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "co.tton.android.base.demo"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -22,11 +21,9 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':base')
-    compile project(':lib_imagepreview')
-    // multi dex
-    compile 'com.android.support:multidex:1.0.1'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':base')
+    implementation project(':lib_imagepreview')
     // test
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 }

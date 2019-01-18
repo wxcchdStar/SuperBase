@@ -3,6 +3,10 @@ package co.tton.android.base.manager;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 
 import co.tton.android.base.R;
 
@@ -21,60 +25,39 @@ public class ImageLoader {
 
     }
 
-    public void load(ImageView view, String uri, int placeHolderId) {
-        if (uri == null) return;
+    public void load(ImageView view, String uri) {
+        if (view == null || uri == null) return;
 
-        Glide.with(view.getContext().getApplicationContext())
+        Glide.with(view)
                 .load(uri)
-                .placeholder(placeHolderId)
-                .centerCrop()
-                .dontAnimate()
+                .apply(getDefaultOptions())
                 .into(view);
     }
 
     public void loadPreview(ImageView view, String uri) {
-        if (uri == null) return;
+        if (view == null || uri == null) return;
 
-        Glide.with(view.getContext().getApplicationContext())
+        Glide.with(view)
                 .load(uri)
-                .placeholder(R.drawable.img_default)
-                .fitCenter()
-                .dontAnimate()
+                .apply(getOverrideOptions(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).centerInside())
                 .into(view);
     }
 
-//    public void loadWithoutSize(final ImageView view, final String uri) {
-//        if (uri == null) return;
-//
-//        Context context = view.getContext().getApplicationContext();
-//
-//        view.setScaleType(ImageView.ScaleType.FIT_CENTER);
-//        view.getLayoutParams().height = ValueUtils.dpToPx(context, 200);
-//        view.requestLayout();
-//
-//        Glide.with(context)
-//                .load(uri)
-//                .dontAnimate()
-//                .transform(new BitmapTransformation(context) {
-//                    @Override
-//                    protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
-//                        return toTransform;
-//                    }
-//
-//                    @Override
-//                    public String getId() {
-//                        return getClass().getName();
-//                    }
-//                })
-//                .into(view);
-//    }
+    private static RequestOptions getDefaultOptions() {
+        return new RequestOptions()
+                .placeholder(R.drawable.img_default)
+                .error(R.drawable.img_default)
+                .fallback(R.drawable.img_default)
+                .centerCrop();
+    }
 
-//    private void load(final ImageView view, Bitmap toTransform) {
-//        if (view.getMeasuredWidth() <= 0) return;
-//
-//        float radio = 1.0f * resource.getIntrinsicWidth() / resource.getIntrinsicHeight();
-//        view.getLayoutParams().height = Math.round(view.getMeasuredWidth() / radio);
-//        view.requestLayout();
-//        view.setBackground(null);
-//    }
+    private static RequestOptions getOverrideOptions(int width, int height) {
+        return getDefaultOptions().override(width, height);
+    }
+
+    private static RequestOptions getRoundOptions(int radius) {
+        return getDefaultOptions()
+                .transforms(new CenterCrop(), new RoundedCorners(radius));
+    }
+
 }

@@ -1,16 +1,18 @@
 package co.tton.android.base.manager;
 
-import rx.Observable;
-import rx.subjects.PublishSubject;
-import rx.subjects.SerializedSubject;
+import com.jakewharton.rxrelay2.PublishRelay;
+import com.jakewharton.rxrelay2.Relay;
+
+import io.reactivex.Observable;
 
 public class RxBus {
 
     private static volatile RxBus sInstance;
-    private final SerializedSubject<Object, Object> mSubject;
+
+    private final Relay<Object> mBus;
 
     private RxBus() {
-        mSubject = new SerializedSubject<>(PublishSubject.create());
+        mBus = PublishRelay.create().toSerialized();
     }
 
     public static RxBus get() {
@@ -25,14 +27,16 @@ public class RxBus {
     }
 
     public void post(Object object) {
-        mSubject.onNext(object);
+        if (object == null) return;
+
+        mBus.accept(object);
     }
 
     public  <T> Observable<T> toObservable(final Class<T> type) {
-        return mSubject.ofType(type);
+        return mBus.ofType(type);
     }
 
     public boolean hasObservers() {
-        return mSubject.hasObservers();
+        return mBus.hasObservers();
     }
 }

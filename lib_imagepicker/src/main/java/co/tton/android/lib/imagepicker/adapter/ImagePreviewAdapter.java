@@ -1,14 +1,15 @@
 package co.tton.android.lib.imagepicker.adapter;
 
-import android.support.v4.view.PagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.github.chrisbanes.photoview.PhotoView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import co.tton.android.base.manager.ImageLoader;
-import uk.co.senab.photoview.PhotoView;
 
 public class ImagePreviewAdapter extends PagerAdapter {
 

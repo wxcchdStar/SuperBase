@@ -1,7 +1,7 @@
 package co.tton.android.base.app.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 public abstract class BaseLazyLoadFragment extends BaseFragment {
 

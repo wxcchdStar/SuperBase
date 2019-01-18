@@ -5,11 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.chrisbanes.photoview.PhotoView;
 import com.jaeger.library.StatusBarUtil;
 
 import java.util.ArrayList;
@@ -18,7 +19,6 @@ import java.util.List;
 import co.tton.android.base.app.activity.BaseActivity;
 import co.tton.android.base.manager.ImageLoader;
 import co.tton.android.base.utils.V;
-import uk.co.senab.photoview.PhotoView;
 
 public class ImagePreviewActivity extends BaseActivity {
     private static final String PIC_LIST = "list";

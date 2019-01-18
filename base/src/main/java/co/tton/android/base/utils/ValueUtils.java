@@ -1,7 +1,7 @@
 package co.tton.android.base.utils;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.util.TypedValue;
 
 public class ValueUtils {

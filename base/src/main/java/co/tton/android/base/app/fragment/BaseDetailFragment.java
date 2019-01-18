@@ -1,7 +1,7 @@
 package co.tton.android.base.app.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import co.tton.android.base.R;
 import co.tton.android.base.utils.V;
 import co.tton.android.base.view.CommonLayout;
-import rx.Subscription;
+import io.reactivex.disposables.Disposable;
 
 public abstract class BaseDetailFragment extends BaseLazyLoadFragment {
 
@@ -48,9 +48,8 @@ public abstract class BaseDetailFragment extends BaseLazyLoadFragment {
 
     private void requestDetail() {
         mCommonLayout.showLoading();
-        Subscription subscription = getDetailRequest();
-        addSubscription(subscription);
+        addDisposable(getDetailRequest());
     }
 
-    protected abstract Subscription getDetailRequest();
+    protected abstract Disposable getDetailRequest();
 }

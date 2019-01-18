@@ -1,16 +1,19 @@
 package co.tton.android.base.app.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+import androidx.annotation.Nullable;
+import com.google.android.material.tabs.TabLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import co.tton.android.base.R;
 import co.tton.android.base.utils.V;
 import co.tton.android.base.view.ToastUtils;
 
 public abstract class BaseMainWithBottomBarActivity extends BaseActivity implements TabLayout.OnTabSelectedListener {
+    private static final int EXIT_TIPS_INTERVAL = 3000;
+
     private static final String ARGS_CURRENT_POSITION = "current_position";
 
     protected ViewPager mViewPager;
@@ -19,7 +22,7 @@ public abstract class BaseMainWithBottomBarActivity extends BaseActivity impleme
     private long mExitTimestamp;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initBottomBar(savedInstanceState);
         initViewPager();
@@ -97,7 +100,7 @@ public abstract class BaseMainWithBottomBarActivity extends BaseActivity impleme
 
     @Override
     public void onBackPressed() {
-        if (System.currentTimeMillis() - mExitTimestamp > 3000) {
+        if (System.currentTimeMillis() - mExitTimestamp > EXIT_TIPS_INTERVAL) {
             mExitTimestamp = System.currentTimeMillis();
             ToastUtils.showShort(this, R.string.common_exit_app);
         } else {

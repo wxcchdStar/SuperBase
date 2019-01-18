@@ -14,7 +14,7 @@ import co.tton.android.base.BuildConfig;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RxApiClient {
@@ -36,20 +36,20 @@ public class RxApiClient {
 
     private Retrofit.Builder createBuilder() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        setHttps(builder);
+        builder.retryOnConnectionFailure(true);
+        builder.connectTimeout(15, TimeUnit.SECONDS); // 默认10s
+//        setHttps(builder);
 
         if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor logger = new HttpLoggingInterceptor();
             logger.setLevel(HttpLoggingInterceptor.Level.BODY);
             builder.addInterceptor(logger);
         }
-        builder.retryOnConnectionFailure(true);
-        builder.connectTimeout(15, TimeUnit.SECONDS); // 默认10s
 
         return new Retrofit.Builder()
                 .baseUrl(mBaseUrl)
                 .client(builder.build())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create());
     }
 

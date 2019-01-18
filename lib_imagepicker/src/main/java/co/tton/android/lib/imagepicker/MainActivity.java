@@ -3,10 +3,9 @@ package co.tton.android.lib.imagepicker;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -15,7 +14,6 @@ import co.tton.android.base.app.activity.BaseActivity;
 import co.tton.android.base.manager.ImageLoader;
 import co.tton.android.base.utils.V;
 import co.tton.android.base.view.BaseQuickAdapter;
-import co.tton.android.base.view.SquareImageView;
 
 public class MainActivity extends BaseActivity {
     private static final int REQUEST_CODE = 233;

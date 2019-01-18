@@ -1,16 +1,16 @@
 package co.tton.android.base.app.presenter;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import java.util.List;
 
 import co.tton.android.base.R;
-import co.tton.android.base.manager.CompositeSubscriptionHelper;
+import co.tton.android.base.manager.CompositeDisposableHelper;
 import co.tton.android.base.view.BaseQuickAdapter;
 import co.tton.android.base.view.CommonLayout;
-import rx.Subscription;
-import rx.functions.Action1;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 // TODO: 改造成不依赖CommonLayout
 public abstract class LoadMorePresenter<T> {
@@ -22,7 +22,7 @@ public abstract class LoadMorePresenter<T> {
     private BaseQuickAdapter<T> mAdapter;
     private BaseQuickAdapter.LoadMoreComponent<T> mLoadMoreComponent;
 
-    private CompositeSubscriptionHelper mCompositeSubscriptionHelper;
+    private CompositeDisposableHelper mCompositeSubscriptionHelper;
 
     private boolean mInit;
 
@@ -41,14 +41,14 @@ public abstract class LoadMorePresenter<T> {
     public void init(CommonLayout commonLayout, RecyclerView recyclerView, BaseQuickAdapter<T> adapter) {
         mCommonLayout = commonLayout;
         mAdapter = adapter;
-        mCompositeSubscriptionHelper = CompositeSubscriptionHelper.newInstance();
+        mCompositeSubscriptionHelper = CompositeDisposableHelper.newInstance();
 
         mLoadMoreComponent = new BaseQuickAdapter.LoadMoreComponent<>();
         mLoadMoreComponent.install(recyclerView, mAdapter, R.layout.common_load_next);
         mLoadMoreComponent.setOnLoadNextListener(new BaseQuickAdapter.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                addSubscription(requestNextPage(mSuccessAction, mFailedAction));
+                addDisposable(requestNextPage(mSuccessAction, mFailedAction));
             }
         });
 
@@ -56,7 +56,7 @@ public abstract class LoadMorePresenter<T> {
             @Override
             public void onClick(View v) {
                 mCommonLayout.showLoading();
-                addSubscription(requestNextPage(mSuccessAction, mFailedAction));
+                addDisposable(requestNextPage(mSuccessAction, mFailedAction));
             }
         });
 
@@ -64,35 +64,35 @@ public abstract class LoadMorePresenter<T> {
         reload();
     }
 
-    public Subscription reload() {
+    public Disposable reload() {
         mPage = mFirstPage;
         mCommonLayout.showLoading();
 
-        Subscription subscription = requestNextPage(mSuccessAction, mFailedAction);
-        addSubscription(subscription);
-        return subscription;
+        Disposable disposable = requestNextPage(mSuccessAction, mFailedAction);
+        addDisposable(disposable);
+        return disposable;
     }
 
     public void destroy() {
         if (mCompositeSubscriptionHelper != null) {
-            mCompositeSubscriptionHelper.unsubscribe();
+            mCompositeSubscriptionHelper.unDispose();
         }
         if (mLoadMoreComponent != null) {
             mLoadMoreComponent.uninstall();
         }
     }
 
-    private void addSubscription(Subscription subscription) {
-        mCompositeSubscriptionHelper.addSubscription(subscription);
+    private void addDisposable(Disposable disposable) {
+        mCompositeSubscriptionHelper.addDispose(disposable);
     }
 
     public boolean isInit() {
         return mInit;
     }
 
-    protected Action1<List<T>> mSuccessAction = new Action1<List<T>>() {
+    protected Consumer<List<T>> mSuccessAction = new Consumer<List<T>>() {
         @Override
-        public void call(List<T> list) {
+        public void accept(List<T> list) {
             mInit = true;
             if (mPage == mFirstPage) {
                 if (list != null && !list.isEmpty()) {
@@ -122,9 +122,9 @@ public abstract class LoadMorePresenter<T> {
         }
     };
 
-    protected Action1<Throwable> mFailedAction = new Action1<Throwable>() {
+    protected Consumer<Throwable> mFailedAction = new Consumer<Throwable>() {
         @Override
-        public void call(Throwable t) {
+        public void accept(Throwable t) {
             mInit = true;
             if (mPage == mFirstPage) {
                 mCommonLayout.showError();
@@ -134,5 +134,5 @@ public abstract class LoadMorePresenter<T> {
         }
     };
 
-    protected abstract Subscription requestNextPage(Action1<List<T>> success, Action1<Throwable> failed);
+    protected abstract Disposable requestNextPage(Consumer<List<T>> success, Consumer<Throwable> failed);
 }

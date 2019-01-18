@@ -6,14 +6,14 @@ import android.view.MenuItem;
 import android.view.View;
 
 import co.tton.android.base.app.fragment.BaseFragment;
-import co.tton.android.base.manager.CompositeSubscriptionHelper;
-import rx.Subscription;
+import co.tton.android.base.manager.CompositeDisposableHelper;
+import io.reactivex.disposables.Disposable;
 
 public abstract class BaseFragmentPresenter {
 
     protected BaseFragment mFragment;
 
-    protected CompositeSubscriptionHelper mCompositeSubscriptionHelper;
+    protected CompositeDisposableHelper mCompositeSubscriptionHelper;
 
     public void setFragment(BaseFragment fragment) {
         mFragment = fragment;
@@ -26,7 +26,7 @@ public abstract class BaseFragmentPresenter {
     }
 
     public void initContentView(View view) {
-        mCompositeSubscriptionHelper = CompositeSubscriptionHelper.newInstance();
+        mCompositeSubscriptionHelper = CompositeDisposableHelper.newInstance();
     }
 
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -45,7 +45,7 @@ public abstract class BaseFragmentPresenter {
     }
 
     public void onDestroyView() {
-        mCompositeSubscriptionHelper.unsubscribe();
+        mCompositeSubscriptionHelper.unDispose();
     }
 
     public void onDestroy() {
@@ -61,7 +61,7 @@ public abstract class BaseFragmentPresenter {
     public void onSaveInstanceState(Bundle outState) {
     }
 
-    public void addSubscription(Subscription subscription) {
-        mCompositeSubscriptionHelper.addSubscription(subscription);
+    public void addDisposable(Disposable disposable) {
+        mCompositeSubscriptionHelper.addDispose(disposable);
     }
 }
