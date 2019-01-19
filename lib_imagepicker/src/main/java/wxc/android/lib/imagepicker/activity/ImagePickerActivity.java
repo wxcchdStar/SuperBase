@@ -26,7 +26,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import io.reactivex.disposables.Disposable;
 import wxc.android.base.app.activity.BaseActivity;
-import wxc.android.base.manager.RxBus;
+import wxc.android.base.rx.RxBus;
 import wxc.android.base.rx.SimpleObserver;
 import wxc.android.base.utils.V;
 import wxc.android.base.view.ToastUtils;

@@ -7,24 +7,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.trello.rxlifecycle3.components.support.RxFragment;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import wxc.android.base.app.activity.BaseActivity;
 import wxc.android.base.app.presenter.linker.FragmentLinker;
-import wxc.android.base.manager.CompositeDisposableHelper;
-import io.reactivex.disposables.Disposable;
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends RxFragment {
 
     private FragmentLinker mLinker = new FragmentLinker();
-
-    private CompositeDisposableHelper mCompositeSubscriptionHelper;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mCompositeSubscriptionHelper = CompositeDisposableHelper.newInstance();
         mLinker.register(this);
         mLinker.onAttach(context);
     }
@@ -79,7 +76,6 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         mLinker.onDestroyView();
-        mCompositeSubscriptionHelper.unDispose();
     }
 
     @Override
@@ -106,10 +102,6 @@ public abstract class BaseFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         mLinker.onSaveInstanceState(outState);
-    }
-
-    public void addDisposable(Disposable disposable) {
-        mCompositeSubscriptionHelper.addDispose(disposable);
     }
 
     public static boolean isAvailable(Fragment fragment) {

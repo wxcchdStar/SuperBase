@@ -1,16 +1,15 @@
 package wxc.android.base.app.presenter;
 
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import java.util.List;
 
-import wxc.android.base.R;
-import wxc.android.base.manager.CompositeDisposableHelper;
-import wxc.android.base.view.BaseQuickAdapter;
-import wxc.android.base.view.CommonLayout;
+import androidx.recyclerview.widget.RecyclerView;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import wxc.android.base.R;
+import wxc.android.base.view.BaseQuickAdapter;
+import wxc.android.base.view.CommonLayout;
 
 // TODO: 改造成不依赖CommonLayout
 public abstract class LoadMorePresenter<T> {
@@ -21,8 +20,6 @@ public abstract class LoadMorePresenter<T> {
     private CommonLayout mCommonLayout;
     private BaseQuickAdapter<T> mAdapter;
     private BaseQuickAdapter.LoadMoreComponent<T> mLoadMoreComponent;
-
-    private CompositeDisposableHelper mCompositeSubscriptionHelper;
 
     private boolean mInit;
 
@@ -41,22 +38,20 @@ public abstract class LoadMorePresenter<T> {
     public void init(CommonLayout commonLayout, RecyclerView recyclerView, BaseQuickAdapter<T> adapter) {
         mCommonLayout = commonLayout;
         mAdapter = adapter;
-        mCompositeSubscriptionHelper = CompositeDisposableHelper.newInstance();
 
         mLoadMoreComponent = new BaseQuickAdapter.LoadMoreComponent<>();
         mLoadMoreComponent.install(recyclerView, mAdapter, R.layout.common_load_next);
         mLoadMoreComponent.setOnLoadNextListener(new BaseQuickAdapter.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                addDisposable(requestNextPage(mSuccessAction, mFailedAction));
+                requestNextPage(mSuccessAction, mFailedAction);
             }
         });
 
         mCommonLayout.setOnErrorClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCommonLayout.showLoading();
-                addDisposable(requestNextPage(mSuccessAction, mFailedAction));
+                reload();
             }
         });
 
@@ -64,26 +59,16 @@ public abstract class LoadMorePresenter<T> {
         reload();
     }
 
-    public Disposable reload() {
+    public void reload() {
         mPage = mFirstPage;
         mCommonLayout.showLoading();
-
-        Disposable disposable = requestNextPage(mSuccessAction, mFailedAction);
-        addDisposable(disposable);
-        return disposable;
+        requestNextPage(mSuccessAction, mFailedAction);
     }
 
     public void destroy() {
-        if (mCompositeSubscriptionHelper != null) {
-            mCompositeSubscriptionHelper.unDispose();
-        }
         if (mLoadMoreComponent != null) {
             mLoadMoreComponent.uninstall();
         }
-    }
-
-    private void addDisposable(Disposable disposable) {
-        mCompositeSubscriptionHelper.addDispose(disposable);
     }
 
     public boolean isInit() {

@@ -6,34 +6,28 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.jaeger.library.StatusBarUtil;
+import com.trello.rxlifecycle3.components.support.RxAppCompatActivity;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import wxc.android.base.R;
 import wxc.android.base.app.presenter.BaseActivityPresenter;
 import wxc.android.base.app.presenter.linker.ActivityLinker;
-import wxc.android.base.manager.CompositeDisposableHelper;
 import wxc.android.base.utils.AndroidBug5497Workaround;
 import wxc.android.base.utils.V;
 import wxc.android.base.utils.ValueUtils;
-import io.reactivex.disposables.Disposable;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends RxAppCompatActivity {
 
     protected Toolbar mToolbar;
 
     private ActivityLinker mLinker = new ActivityLinker();
-
-    private CompositeDisposableHelper mCompositeSubscriptionHelper;
 
     private boolean mIsHasStatusBarColor = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCompositeSubscriptionHelper = CompositeDisposableHelper.newInstance();
-
         setContentView(getLayoutId());
         AndroidBug5497Workaround.assistActivity(this);
 
@@ -85,7 +79,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         mLinker.onDestroy();
-        mCompositeSubscriptionHelper.unDispose();
     }
 
     @Override
@@ -121,10 +114,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public void addPresenter(BaseActivityPresenter presenter) {
         mLinker.addActivityCallbacks(presenter);
-    }
-
-    public void addDisposable(Disposable disposable) {
-        mCompositeSubscriptionHelper.addDispose(disposable);
     }
 
     public static boolean isAvailable(Activity activity) {

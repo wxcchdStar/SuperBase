@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import wxc.android.base.R;
 import wxc.android.base.utils.V;
 import wxc.android.base.view.CommonLayout;
-import io.reactivex.disposables.Disposable;
 
 public abstract class BaseDetailFragment extends BaseLazyLoadFragment {
 
@@ -48,8 +47,8 @@ public abstract class BaseDetailFragment extends BaseLazyLoadFragment {
 
     private void requestDetail() {
         mCommonLayout.showLoading();
-        addDisposable(getDetailRequest());
+        requestGetDetail();
     }
 
-    protected abstract Disposable getDetailRequest();
+    protected abstract void requestGetDetail();
 }

@@ -7,7 +7,6 @@ import android.view.View;
 import wxc.android.base.R;
 import wxc.android.base.utils.V;
 import wxc.android.base.view.CommonLayout;
-import io.reactivex.disposables.Disposable;
 
 public abstract class BaseDetailActivity extends BaseActivity {
 
@@ -37,8 +36,8 @@ public abstract class BaseDetailActivity extends BaseActivity {
 
     private void requestDetail() {
         mCommonLayout.showLoading();
-        addDisposable(getDetailRequest());
+        requestGetDetail();
     }
 
-    protected abstract Disposable getDetailRequest();
+    protected abstract void requestGetDetail();
 }

@@ -6,14 +6,8 @@
 
 ### Base library
 包简介
-1. `api`下是基于RxJava+Retrofit的二次封装，旨在简化Api调用。
+1. `api`下是基于RxJava2+Retrofit的二次封装，旨在简化Api调用。
 2. `app`下是对Activity、Fragment等页面相关的类的封装，旨在简化开发、提高松耦合。
 3. `manager`下仅包含`ImageLoader`、`RxBus`。`ImageLoader`用于加载本地、网络图片；`RxBus`用于替换`EventBus`、`Otto`。
 4. `utils`下是各种工具类。
 5. `view`下是各种自定义View
-
-
-### Third libraries
-1. [MaterialDateTimePicker](https://github.com/wdullaer/MaterialDateTimePicker)
-2. [CircleImageView](https://github.com/hdodenhof/CircleImageView)
-3. [RoundedImageView](https://github.com/vinc3m1/RoundedImageView)

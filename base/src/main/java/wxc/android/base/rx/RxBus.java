@@ -1,4 +1,4 @@
-package wxc.android.base.manager;
+package wxc.android.base.rx;
 
 import com.jakewharton.rxrelay2.PublishRelay;
 import com.jakewharton.rxrelay2.Relay;
