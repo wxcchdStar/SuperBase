@@ -5,15 +5,15 @@ import android.content.Context;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-public class ProgressObserver<T> implements Observer<T>, ProgressDialogHandler.ProgressDismissListener {
+public class ApiProgressObserver<T> implements Observer<T>, ApiProgressDialogHandler.ProgressDismissListener {
 
     private Observer<T> mObserver;
-    private ProgressDialogHandler mProgressDialogHandler;
+    private ApiProgressDialogHandler mProgressDialogHandler;
     private Disposable mDisposable;
 
-    public ProgressObserver(Context context, Observer<T> observer) {
+    public ApiProgressObserver(Context context, Observer<T> observer) {
         mObserver = observer;
-        mProgressDialogHandler = new ProgressDialogHandler(context, this);
+        mProgressDialogHandler = new ApiProgressDialogHandler(context, this);
     }
 
     @Override
@@ -57,13 +57,13 @@ public class ProgressObserver<T> implements Observer<T>, ProgressDialogHandler.P
 
     private void show() {
         if (mProgressDialogHandler != null) {
-            mProgressDialogHandler.obtainMessage(ProgressDialogHandler.SHOW_PROGRESS_DIALOG).sendToTarget();
+            mProgressDialogHandler.obtainMessage(ApiProgressDialogHandler.SHOW_PROGRESS_DIALOG).sendToTarget();
         }
     }
 
     private void dismiss() {
         if (mProgressDialogHandler != null) {
-            mProgressDialogHandler.obtainMessage(ProgressDialogHandler.DISMISS_PROGRESS_DIALOG).sendToTarget();
+            mProgressDialogHandler.obtainMessage(ApiProgressDialogHandler.DISMISS_PROGRESS_DIALOG).sendToTarget();
             mProgressDialogHandler = null;
         }
     }

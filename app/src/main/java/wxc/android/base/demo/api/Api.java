@@ -3,7 +3,7 @@ package wxc.android.base.demo.api;
 import java.util.List;
 
 import wxc.android.base.api.ApiResult;
-import wxc.android.base.api.RxApiClient;
+import wxc.android.base.api.ApiClient;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -15,7 +15,7 @@ public class Api {
     private InternalApi mApi;
 
     private Api() {
-        RxApiClient apiClient = RxApiClient.create("https://api.douban.com/v2/");
+        ApiClient apiClient = ApiClient.create("https://api.douban.com/v2/");
         mApi = apiClient.createApi(InternalApi.class);
     }
 

@@ -9,21 +9,21 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RxApiClient {
+public class ApiClient {
 
     private String mBaseUrl;
     private Retrofit mRetrofit;
 
-    private RxApiClient(String baseUrl) {
+    private ApiClient(String baseUrl) {
         mBaseUrl = baseUrl;
         mRetrofit = createBuilder().build();
     }
 
-    public static RxApiClient create(String baseUrl) {
+    public static ApiClient create(String baseUrl) {
         if (baseUrl == null) {
             throw new IllegalArgumentException("The baseUrl must be not NULL!");
         }
-        return new RxApiClient(baseUrl);
+        return new ApiClient(baseUrl);
     }
 
     private Retrofit.Builder createBuilder() {

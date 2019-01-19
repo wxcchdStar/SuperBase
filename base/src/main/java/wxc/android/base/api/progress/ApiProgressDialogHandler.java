@@ -7,7 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 
 
-public class ProgressDialogHandler extends Handler {
+public class ApiProgressDialogHandler extends Handler {
     public static final int SHOW_PROGRESS_DIALOG = 1;
     public static final int DISMISS_PROGRESS_DIALOG = 2;
 
@@ -17,11 +17,11 @@ public class ProgressDialogHandler extends Handler {
     private boolean mCancelable;
     private ProgressDismissListener mProgressCancelListener;
 
-    public ProgressDialogHandler(Context context, ProgressDismissListener listener) {
+    public ApiProgressDialogHandler(Context context, ProgressDismissListener listener) {
         this(context, listener, false);
     }
 
-    public ProgressDialogHandler(Context context, ProgressDismissListener listener, boolean cancelable) {
+    public ApiProgressDialogHandler(Context context, ProgressDismissListener listener, boolean cancelable) {
         mContext = context;
         mProgressCancelListener = listener;
         mCancelable = cancelable;

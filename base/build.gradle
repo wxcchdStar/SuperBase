@@ -42,7 +42,6 @@ dependencies {
     // RxLifecycle
     api 'com.trello.rxlifecycle3:rxlifecycle:3.0.0'
     api 'com.trello.rxlifecycle3:rxlifecycle-android:3.0.0'
-    api 'com.trello.rxlifecycle3:rxlifecycle-android-lifecycle:3.0.0'
     api 'com.trello.rxlifecycle3:rxlifecycle-components:3.0.0'
     // AutoDispose
     api 'com.uber.autodispose:autodispose:1.1.0'

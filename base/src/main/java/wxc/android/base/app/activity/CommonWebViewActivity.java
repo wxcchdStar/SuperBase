@@ -68,7 +68,7 @@ public class CommonWebViewActivity extends BaseActivity {
         mWebView.destroy();
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
+    @SuppressLint({"SetJavaScriptEnabled", "ClickableViewAccessibility"})
     private void setupWebView() {
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setLightTouchEnabled(false);

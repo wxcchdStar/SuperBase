@@ -12,7 +12,7 @@ import wxc.android.base.view.BaseQuickAdapter;
 import wxc.android.base.view.CommonLayout;
 
 // TODO: 改造成不依赖CommonLayout
-public abstract class LoadMorePresenter<T> {
+public abstract class BaseLoadMorePresenter<T> {
 
     protected int mPage;
     protected int mPageSize;
@@ -25,11 +25,11 @@ public abstract class LoadMorePresenter<T> {
 
     private int mFirstPage;
 
-    public LoadMorePresenter() {
+    public BaseLoadMorePresenter() {
         this(1, 20); // 默认第一页从1开始，每页有20项。
     }
 
-    public LoadMorePresenter(int firstPage, int pageSize) {
+    public BaseLoadMorePresenter(int firstPage, int pageSize) {
         mFirstPage = firstPage;
         mPage = firstPage;
         mPageSize = pageSize;

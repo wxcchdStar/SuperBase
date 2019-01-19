@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import wxc.android.base.R;
-import wxc.android.base.app.presenter.LoadMorePresenter;
+import wxc.android.base.app.presenter.BaseLoadMorePresenter;
 import wxc.android.base.utils.V;
 import wxc.android.base.view.BaseQuickAdapter;
 import wxc.android.base.view.CommonLayout;
@@ -17,7 +17,7 @@ public abstract class BaseListActivity<T> extends BaseActivity {
     protected CommonLayout mCommonLayout;
     protected RecyclerView mRecyclerView;
     protected BaseQuickAdapter<T> mAdapter;
-    protected LoadMorePresenter<T> mLoadMoreComponent;
+    protected BaseLoadMorePresenter<T> mLoadMoreComponent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,5 +64,5 @@ public abstract class BaseListActivity<T> extends BaseActivity {
 
     protected abstract BaseQuickAdapter<T> initAdapter();
 
-    protected abstract LoadMorePresenter<T> initLoadMoreComponent();
+    protected abstract BaseLoadMorePresenter<T> initLoadMoreComponent();
 }
