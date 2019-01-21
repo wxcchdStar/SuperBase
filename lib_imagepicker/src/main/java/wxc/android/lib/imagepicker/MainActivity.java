@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 
 import wxc.android.base.app.activity.BaseActivity;
-import wxc.android.base.manager.ImageLoader;
+import wxc.android.base.image.ImageLoader;
 import wxc.android.base.utils.V;
 import wxc.android.base.view.BaseQuickAdapter;
 

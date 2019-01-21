@@ -10,7 +10,7 @@ import com.github.chrisbanes.photoview.PhotoView;
 import java.util.ArrayList;
 import java.util.List;
 
-import wxc.android.base.manager.ImageLoader;
+import wxc.android.base.image.ImageLoader;
 
 public class ImagePreviewAdapter extends PagerAdapter {
 

@@ -6,7 +6,7 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-import wxc.android.base.manager.ImageLoader;
+import wxc.android.base.image.ImageLoader;
 import wxc.android.base.rx.RxBus;
 import wxc.android.base.view.BaseQuickAdapter;
 import wxc.android.base.view.ToastUtils;

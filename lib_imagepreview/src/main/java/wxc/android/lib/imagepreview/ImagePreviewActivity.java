@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import wxc.android.base.app.activity.BaseActivity;
-import wxc.android.base.manager.ImageLoader;
+import wxc.android.base.image.ImageLoader;
 import wxc.android.base.utils.V;
 
 public class ImagePreviewActivity extends BaseActivity {

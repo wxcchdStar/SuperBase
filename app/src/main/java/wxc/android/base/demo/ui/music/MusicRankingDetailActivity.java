@@ -17,7 +17,7 @@ import wxc.android.base.demo.R;
 import wxc.android.base.demo.api.Api;
 import wxc.android.base.demo.api.ApiUtils;
 import wxc.android.base.demo.model.MusicRankingDetailBean;
-import wxc.android.base.manager.ImageLoader;
+import wxc.android.base.image.ImageLoader;
 
 public class MusicRankingDetailActivity extends BaseDetailActivity {
     public static final String ARGS_TYPE = "args_type";

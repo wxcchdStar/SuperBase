@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import wxc.android.base.manager.ImageLoader;
+import wxc.android.base.image.ImageLoader;
 import wxc.android.base.rx.RxBus;
 import wxc.android.base.view.BaseQuickAdapter;
 import wxc.android.lib.imagepicker.R;

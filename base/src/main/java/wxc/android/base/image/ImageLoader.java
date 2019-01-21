@@ -1,4 +1,4 @@
-package wxc.android.base.manager;
+package wxc.android.base.image;
 
 import android.widget.ImageView;
 
