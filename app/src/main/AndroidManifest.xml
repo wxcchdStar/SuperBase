@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="wxc.android.base.demo">
 
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -13,7 +14,19 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+
+        <!--适配华为（huawei）刘海屏-->
+        <meta-data
+            android:name="android.notch_support"
+            android:value="true" />
+
+        <!--适配小米（xiaomi）刘海屏-->
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape" />
+
         <activity
             android:name=".ui.MainActivity"
             android:launchMode="singleTask">
@@ -25,6 +38,7 @@
         </activity>
         <activity android:name=".ui.music.MusicRankingListActivity" />
         <activity android:name=".ui.music.MusicRankingDetailActivity" />
+
     </application>
 
 </manifest>

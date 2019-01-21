@@ -2,13 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="8dp">
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/iv_music_ranking_detail_avatar"
         android:layout_width="match_parent"
-        android:layout_height="108dp"
+        android:layout_height="wrap_content"
         android:contentDescription="@null" />
 
     <TextView
@@ -24,5 +23,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textSize="14sp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:text="test status bar and navigation bar" />
 
 </LinearLayout>

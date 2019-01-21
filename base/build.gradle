@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-//apply plugin: 'net.ltgt.errorprone'
 
 android {
     compileSdkVersion 28
@@ -7,7 +6,7 @@ android {
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 22
+        targetSdkVersion 26
         multiDexEnabled true
         versionCode 1
         versionName "1.0"
@@ -23,7 +22,6 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
-
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     // Support Library
@@ -31,8 +29,7 @@ dependencies {
     api 'androidx.cardview:cardview:1.0.0'
     api 'androidx.constraintlayout:constraintlayout:1.1.3'
     // Status bar
-    api 'com.jaeger.statusbaruitl:library:1.4.0'
-    //    api 'com.gyf.immersionbar:immersionbar:2.3.3-beta15'
+    api 'com.gyf.immersionbar:immersionbar:2.3.3-beta15'
     // Material dialog
     api 'com.afollestad.material-dialogs:core:0.9.6.0'
     // RxJava2
@@ -43,12 +40,19 @@ dependencies {
     api 'com.trello.rxlifecycle3:rxlifecycle:3.0.0'
     api 'com.trello.rxlifecycle3:rxlifecycle-android:3.0.0'
     api 'com.trello.rxlifecycle3:rxlifecycle-components:3.0.0'
-    // AutoDispose
-//    api 'com.uber.autodispose:autodispose:1.1.0'
-//    api 'com.uber.autodispose:autodispose-android:1.1.0'
-//    api 'com.uber.autodispose:autodispose-lifecycle:1.1.0'
-//    api 'com.uber.autodispose:autodispose-android-archcomponents:1.1.0'
-//    api 'com.uber.autodispose:autodispose-rxlifecycle3:1.1.0'
+    // RxPermissions
+    api 'com.github.tbruyelle:rxpermissions:0.10.2'
+    // RxBinding
+    api 'com.jakewharton.rxbinding3:rxbinding:3.0.0-alpha2'
+    api 'com.jakewharton.rxbinding3:rxbinding-core:3.0.0-alpha2'
+    api 'com.jakewharton.rxbinding3:rxbinding-appcompat:3.0.0-alpha2'
+    api 'com.jakewharton.rxbinding3:rxbinding-drawerlayout:3.0.0-alpha2'
+    api 'com.jakewharton.rxbinding3:rxbinding-leanback:3.0.0-alpha2'
+    api 'com.jakewharton.rxbinding3:rxbinding-recyclerview:3.0.0-alpha2'
+    api 'com.jakewharton.rxbinding3:rxbinding-slidingpanelayout:3.0.0-alpha2'
+    api 'com.jakewharton.rxbinding3:rxbinding-swiperefreshlayout:3.0.0-alpha2'
+    api 'com.jakewharton.rxbinding3:rxbinding-viewpager:3.0.0-alpha2'
+    api 'com.jakewharton.rxbinding3:rxbinding-material:3.0.0-alpha2'
     // Dagger
     api 'com.google.dagger:dagger:2.21'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.21'
@@ -74,6 +78,11 @@ dependencies {
     debugApi 'com.squareup.leakcanary:leakcanary-android:1.6.3'
     releaseApi 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
     debugApi 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
-    // NullPointException check
-    //    annotationProcessor "com.uber.nullaway:nullaway:0.2.2"
+    // AutoDispose
+//    api 'com.uber.autodispose:autodispose:1.1.0'
+//    api 'com.uber.autodispose:autodispose-android:1.1.0'
+//    api 'com.uber.autodispose:autodispose-lifecycle:1.1.0'
+//    api 'com.uber.autodispose:autodispose-android-archcomponents:1.1.0'
+//    api 'com.uber.autodispose:autodispose-rxlifecycle3:1.1.0'
 }
+

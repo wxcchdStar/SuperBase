@@ -30,7 +30,6 @@ public abstract class BaseSplashActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setIsHasStatusBarColor(false);
         setTheme(R.style.FullScreenTheme);
         super.onCreate(savedInstanceState);
         mHandler = new MyHandler(this);

@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.jaeger.library.StatusBarUtil;
+import com.gyf.barlibrary.ImmersionBar;
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity;
 
 import androidx.annotation.Nullable;
@@ -15,7 +15,6 @@ import wxc.android.base.app.presenter.BaseActivityPresenter;
 import wxc.android.base.app.presenter.linker.ActivityLinker;
 import wxc.android.base.utils.AndroidBug5497Workaround;
 import wxc.android.base.utils.V;
-import wxc.android.base.utils.ValueUtils;
 
 public abstract class BaseActivity extends RxAppCompatActivity {
 
@@ -23,19 +22,19 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 
     private ActivityLinker mLinker = new ActivityLinker();
 
-    private boolean mIsHasStatusBarColor = true;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
+        // 解决软键盘遮挡布局的问题
         AndroidBug5497Workaround.assistActivity(this);
-
-        if (mIsHasStatusBarColor) {
-            StatusBarUtil.setColor(this, ValueUtils.getColor(this, R.color.colorPrimary), 0);
-        }
+        // TODO 设置StatusBar颜色，根布局必须设置fitsSystemWindows
+        ImmersionBar.with(this)
+                .statusBarColor(R.color.colorPrimary)
+                .init();
+        // Toolbar
         initToolbar();
-
+        // Delegate lifecycle
         mLinker.register(this);
         mLinker.onCreate(savedInstanceState);
     }
@@ -79,6 +78,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         mLinker.onDestroy();
+        ImmersionBar.with(this).destroy();
     }
 
     @Override
@@ -107,10 +107,6 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     }
 
     protected abstract int getLayoutId();
-
-    protected void setIsHasStatusBarColor(boolean b) {
-        mIsHasStatusBarColor = b;
-    }
 
     public void addPresenter(BaseActivityPresenter presenter) {
         mLinker.addActivityCallbacks(presenter);

@@ -15,6 +15,7 @@ import wxc.android.base.api.rx.ApiTransformer;
 import wxc.android.base.app.activity.BaseDetailActivity;
 import wxc.android.base.demo.R;
 import wxc.android.base.demo.api.Api;
+import wxc.android.base.demo.api.ApiUtils;
 import wxc.android.base.demo.model.MusicRankingDetailBean;
 import wxc.android.base.manager.ImageLoader;
 
@@ -57,8 +58,14 @@ public class MusicRankingDetailActivity extends BaseDetailActivity {
                         } else {
                             mCommonLayout.showEmpty();
                         }
+                        ApiUtils.toastSuccess(getApplicationContext(), "Success!");
                     }
 
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        ApiUtils.toastError(getApplicationContext(), null, e);
+                    }
                 });
     }
 
@@ -68,7 +75,7 @@ public class MusicRankingDetailActivity extends BaseDetailActivity {
         TextView descTv = findViewById(R.id.tv_music_ranking_detail_desc);
 
         MusicRankingDetailBean bean = beanList.get(0);
-        ImageLoader.get().load(avatarIv, bean.pic_premium);
+        ImageLoader.get().loadPreview(avatarIv, bean.pic_premium);
         titleTv.setText(bean.album_title);
         descTv.setText(bean.artist_name);
     }
