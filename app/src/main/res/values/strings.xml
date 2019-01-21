@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SuperBase</string>
+    <string name="title_music_ranking_detail">音乐排行榜详情</string>
+    <string name="title_music_ranking">音乐排行榜</string>
 </resources>

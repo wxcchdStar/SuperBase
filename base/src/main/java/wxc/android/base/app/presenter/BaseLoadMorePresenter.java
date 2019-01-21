@@ -21,8 +21,6 @@ public abstract class BaseLoadMorePresenter<T> {
     private BaseQuickAdapter<T> mAdapter;
     private BaseQuickAdapter.LoadMoreComponent<T> mLoadMoreComponent;
 
-    private boolean mInit;
-
     private int mFirstPage;
 
     public BaseLoadMorePresenter() {
@@ -41,21 +39,10 @@ public abstract class BaseLoadMorePresenter<T> {
 
         mLoadMoreComponent = new BaseQuickAdapter.LoadMoreComponent<>();
         mLoadMoreComponent.install(recyclerView, mAdapter, R.layout.common_load_next);
-        mLoadMoreComponent.setOnLoadNextListener(new BaseQuickAdapter.OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-                requestNextPage(mSuccessAction, mFailedAction);
-            }
-        });
+        mLoadMoreComponent.setOnLoadNextListener(() -> requestNextPage(mSuccessAction, mFailedAction));
 
-        mCommonLayout.setOnErrorClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                reload();
-            }
-        });
+        mCommonLayout.setOnErrorClickListener(v -> reload());
 
-        mInit = true;
         reload();
     }
 
@@ -71,14 +58,9 @@ public abstract class BaseLoadMorePresenter<T> {
         }
     }
 
-    public boolean isInit() {
-        return mInit;
-    }
-
     protected Consumer<List<T>> mSuccessAction = new Consumer<List<T>>() {
         @Override
         public void accept(List<T> list) {
-            mInit = true;
             if (mPage == mFirstPage) {
                 if (list != null && !list.isEmpty()) {
                     mAdapter.setDataDirectly(list);
@@ -110,7 +92,6 @@ public abstract class BaseLoadMorePresenter<T> {
     protected Consumer<Throwable> mFailedAction = new Consumer<Throwable>() {
         @Override
         public void accept(Throwable t) {
-            mInit = true;
             if (mPage == mFirstPage) {
                 mCommonLayout.showError();
             } else {

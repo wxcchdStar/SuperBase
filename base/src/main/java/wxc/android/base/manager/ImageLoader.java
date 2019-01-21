@@ -28,6 +28,8 @@ public class ImageLoader {
     public void load(ImageView view, String uri) {
         if (view == null || uri == null) return;
 
+        view.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
         Glide.with(view)
                 .load(uri)
                 .apply(getDefaultOptions())
@@ -36,6 +38,8 @@ public class ImageLoader {
 
     public void loadPreview(ImageView view, String uri) {
         if (view == null || uri == null) return;
+
+        view.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         Glide.with(view)
                 .load(uri)

@@ -1,4 +1,4 @@
-package wxc.android.base.api;
+package wxc.android.base.api.rx;
 
 import com.trello.rxlifecycle3.LifecycleProvider;
 import com.trello.rxlifecycle3.LifecycleTransformer;
@@ -13,6 +13,8 @@ import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import wxc.android.base.api.ApiResultException;
+import wxc.android.base.api.model.ApiResult;
 import wxc.android.logwriter.L;
 
 public class ApiTransformer<T> implements ObservableTransformer<ApiResult<T>, T> {

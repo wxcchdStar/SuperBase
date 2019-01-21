@@ -1,9 +1,6 @@
 package wxc.android.base.view;
 
 import android.content.Context;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +9,10 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import wxc.android.base.R;
 import wxc.android.base.utils.V;
 import wxc.android.logwriter.L;
@@ -32,7 +33,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseQuick
     protected List<T> mData;
 
     public BaseQuickAdapter(Context context) {
-        this(context, new ArrayList<T>());
+        this(context, new ArrayList<>());
     }
 
     public BaseQuickAdapter(Context context, ArrayList<T> data) {
@@ -75,8 +76,9 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseQuick
         return mFooterView == null ? 0 : 1;
     }
 
+    @NonNull
     @Override
-    public QuickHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public QuickHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         QuickHolder holder;
         switch (viewType) {
             case HEADER_VIEW:
@@ -97,7 +99,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseQuick
     }
 
     @Override
-    public void onBindViewHolder(QuickHolder holder, int position) {
+    public void onBindViewHolder(@NonNull QuickHolder holder, int position) {
         switch (getItemViewType(position)) {
             case HEADER_VIEW:
             case FOOTER_VIEW:
@@ -252,12 +254,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseQuick
             View loadingView = LayoutInflater.from(recyclerView.getContext()).inflate(loadMoreLayoutId, (ViewGroup) recyclerView.getParent(), false);
             mLoadFailView = V.f(loadingView, R.id.load_fail);
             mLoadingView = V.f(loadingView, R.id.load_ing);
-            mLoadFailView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onLoadNextStart();
-                }
-            });
+            mLoadFailView.setOnClickListener(v -> onLoadNextStart());
             mAdapter.setLoadingView(loadingView);
             mAdapter.mLoadNextEnable = true;
 
@@ -278,21 +275,19 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseQuick
         }
 
         @Override
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-            if (mAdapter.mLoadNextEnable) {
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
-                    if (layoutManager instanceof LinearLayoutManager) {
-                        int lastVisibleItemPosition = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
-                        int visibleItemCount = layoutManager.getChildCount();
-                        int totalItemCount = layoutManager.getItemCount();
+        public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+            if (mAdapter.mLoadNextEnable && newState == RecyclerView.SCROLL_STATE_IDLE) {
+                RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
+                if (layoutManager instanceof LinearLayoutManager) {
+                    int lastVisibleItemPosition = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
+                    int visibleItemCount = layoutManager.getChildCount();
+                    int totalItemCount = layoutManager.getItemCount();
 
-                        if (lastVisibleItemPosition + 5 >= totalItemCount // 提前5项开始加载下一页
-                                || (totalItemCount - lastVisibleItemPosition) == 0 && totalItemCount > visibleItemCount) {
-                            // 没有正在加载 或 加载失败,但是还在往下滚动
-                            if (!mIsLoading || (mLoadFailed && mIsScrollDown)) {
-                                onLoadNextStart();
-                            }
+                    if (lastVisibleItemPosition + 5 >= totalItemCount // 提前5项开始加载下一页
+                            || (totalItemCount - lastVisibleItemPosition) == 0 && totalItemCount > visibleItemCount) {
+                        // 没有正在加载 或 加载失败,但是还在往下滚动
+                        if (!mIsLoading || (mLoadFailed && mIsScrollDown)) {
+                            onLoadNextStart();
                         }
                     }
                 }
@@ -300,7 +295,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseQuick
         }
 
         @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+        public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
             mIsScrollDown = dy > 0;
         }
 

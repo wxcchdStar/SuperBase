@@ -1,4 +1,4 @@
-package wxc.android.base.api;
+package wxc.android.base.api.model;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -10,10 +10,10 @@ public class ApiResult<T> {
     @SerializedName("message")
     public String mMessage;
 
-    @SerializedName("data")
+    @SerializedName("result")
     public T mData;
 
     public boolean isOk() {
-        return mCode == 0;
+        return mCode == 200;
     }
 }

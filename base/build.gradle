@@ -44,10 +44,10 @@ dependencies {
     api 'com.trello.rxlifecycle3:rxlifecycle-android:3.0.0'
     api 'com.trello.rxlifecycle3:rxlifecycle-components:3.0.0'
     // AutoDispose
-    api 'com.uber.autodispose:autodispose:1.1.0'
-    api 'com.uber.autodispose:autodispose-android:1.1.0'
+//    api 'com.uber.autodispose:autodispose:1.1.0'
+//    api 'com.uber.autodispose:autodispose-android:1.1.0'
 //    api 'com.uber.autodispose:autodispose-lifecycle:1.1.0'
-    api 'com.uber.autodispose:autodispose-android-archcomponents:1.1.0'
+//    api 'com.uber.autodispose:autodispose-android-archcomponents:1.1.0'
 //    api 'com.uber.autodispose:autodispose-rxlifecycle3:1.1.0'
     // Dagger
     api 'com.google.dagger:dagger:2.21'

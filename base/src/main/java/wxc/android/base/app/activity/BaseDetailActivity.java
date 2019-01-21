@@ -1,9 +1,8 @@
 package wxc.android.base.app.activity;
 
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import android.view.View;
 
+import androidx.annotation.Nullable;
 import wxc.android.base.R;
 import wxc.android.base.utils.V;
 import wxc.android.base.view.CommonLayout;
@@ -18,12 +17,7 @@ public abstract class BaseDetailActivity extends BaseActivity {
 
         mCommonLayout = V.f(this, R.id.common_layout);
         mCommonLayout.setContentLayoutId(getContentLayoutId());
-        mCommonLayout.setOnErrorClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requestDetail();
-            }
-        });
+        mCommonLayout.setOnErrorClickListener(v -> requestDetail());
         requestDetail();
     }
 

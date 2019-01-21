@@ -2,11 +2,14 @@ package wxc.android.base.demo.api;
 
 import java.util.List;
 
-import wxc.android.base.api.ApiResult;
+import retrofit2.http.Field;
+import retrofit2.http.Query;
+import wxc.android.base.api.model.ApiResult;
 import wxc.android.base.api.ApiClient;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
+import wxc.android.base.demo.model.MusicRankingBean;
+import wxc.android.base.demo.model.MusicRankingDetailBean;
 
 public class Api {
 
@@ -15,7 +18,7 @@ public class Api {
     private InternalApi mApi;
 
     private Api() {
-        ApiClient apiClient = ApiClient.create("https://api.douban.com/v2/");
+        ApiClient apiClient = ApiClient.create("https://api.apiopen.top/");
         mApi = apiClient.createApi(InternalApi.class);
     }
 
@@ -32,8 +35,11 @@ public class Api {
 
     public interface InternalApi {
 
-        @GET("/book/series/{id}/books")
-        Observable<ApiResult<List<BookBean>>> getBooks(@Path("id") String id);
+        @GET("/musicRankings")
+        Observable<ApiResult<List<MusicRankingBean>>> getMusicRankings();
+
+        @GET("/musicRankingsDetails")
+        Observable<ApiResult<List<MusicRankingDetailBean>>> getMusicRankingDetail(@Query("type") int type);
 
     }
 }

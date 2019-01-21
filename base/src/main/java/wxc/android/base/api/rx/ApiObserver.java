@@ -1,7 +1,8 @@
-package wxc.android.base.api;
+package wxc.android.base.api.rx;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import timber.log.Timber;
 
 public abstract class ApiObserver<T> implements Observer<T> {
 
@@ -17,7 +18,7 @@ public abstract class ApiObserver<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
-
+        Timber.d(e);
     }
 
     @Override
