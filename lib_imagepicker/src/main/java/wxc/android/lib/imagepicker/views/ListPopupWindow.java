@@ -31,7 +31,7 @@ public class ListPopupWindow {
 
     public void initPopupWindow() {
         View contentView = mActivity.getLayoutInflater().inflate(R.layout.popup_window, null);
-        mFolderRv = (RecyclerView) contentView.findViewById(R.id.rv_image_folder);
+        mFolderRv = contentView.findViewById(R.id.rv_image_folder);
         mFolderRv.setLayoutManager(new LinearLayoutManager(mActivity));
         mFolderRv.addItemDecoration(new GreyItemDecoration(mActivity));
         mFolderAdapter = new PopupWindowAdapter(mActivity);

@@ -70,7 +70,7 @@ public class DownloadTask {
     public String generateFileName(String url) {
         int index = url.lastIndexOf("/.");
         if (index > -1) {
-            String suffix = url.substring(index, url.length());
+            String suffix = url.substring(index);
             return url.hashCode() + "." + suffix;
         }
         return String.valueOf(url.hashCode());

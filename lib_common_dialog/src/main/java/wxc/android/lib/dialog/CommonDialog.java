@@ -47,7 +47,7 @@ public class CommonDialog implements View.OnClickListener {
     private Dialog createDialog() {
         LayoutInflater inflater = LayoutInflater.from(mActivity);
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.dialog_common, null);
-        ViewStub contentVs = (ViewStub) root.findViewById(R.id.vs_dialog_content);
+        ViewStub contentVs = root.findViewById(R.id.vs_dialog_content);
 
         // 设置标题
         initTitleView(root);
@@ -74,7 +74,7 @@ public class CommonDialog implements View.OnClickListener {
     }
 
     protected void initTitleView(ViewGroup root) {
-        TextView tvTitle = (TextView) root.findViewById(R.id.tv_dialog_title);
+        TextView tvTitle = root.findViewById(R.id.tv_dialog_title);
         if (!TextUtils.isEmpty(mParams.mTitle)) {
             tvTitle.setVisibility(View.VISIBLE);
             tvTitle.setText(mParams.mTitle);
@@ -86,8 +86,8 @@ public class CommonDialog implements View.OnClickListener {
     protected void initButtons(ViewGroup root) {
         boolean hasLeft = !TextUtils.isEmpty(mParams.mBtnLeftText);
         boolean hasRight = !TextUtils.isEmpty(mParams.mBtnRightText);
-        mLeftBtn = (TextView) root.findViewById(R.id.tv_dialog_left_btn);
-        mRightBtn = (TextView) root.findViewById(R.id.tv_dialog_right_btn);
+        mLeftBtn = root.findViewById(R.id.tv_dialog_left_btn);
+        mRightBtn = root.findViewById(R.id.tv_dialog_right_btn);
         if (hasLeft && hasRight) { // double buttons
             mLeftBtn.setText(mParams.mBtnLeftText);
             mLeftBtn.setOnClickListener(this);
@@ -102,7 +102,7 @@ public class CommonDialog implements View.OnClickListener {
                 mRightBtn.setText(mParams.mBtnRightText);
             }
         } else { // no buttons
-            ViewGroup buttons = (ViewGroup) root.findViewById(R.id.fl_dialog_below_button);
+            ViewGroup buttons = root.findViewById(R.id.fl_dialog_below_button);
             buttons.setVisibility(View.GONE);
         }
     }

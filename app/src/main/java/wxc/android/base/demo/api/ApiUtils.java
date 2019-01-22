@@ -4,12 +4,12 @@ import android.content.Context;
 
 import java.io.File;
 
-import wxc.android.base.api.ApiResultException;
-import wxc.android.base.demo.R;
-import wxc.android.base.view.ToastUtils;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import wxc.android.base.api.ApiResultException;
+import wxc.android.base.demo.R;
+import wxc.android.base.view.ToastUtils;
 
 public class ApiUtils {
 
