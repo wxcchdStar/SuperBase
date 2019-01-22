@@ -1,6 +1,5 @@
 package wxc.android.base.utils;
 
-import android.annotation.TargetApi;
 import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
@@ -12,11 +11,8 @@ import android.provider.MediaStore;
 
 import java.io.File;
 
-import wxc.android.logwriter.L;
-
 public class FileUtils {
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
     public static String getPath(Context context, Uri uri) {
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
 
@@ -79,17 +75,12 @@ public class FileUtils {
     }
 
     private static String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
-        Cursor cursor = context.getContentResolver().query(uri, null, selection, selectionArgs, null);
-        try {
+        try (Cursor cursor = context.getContentResolver().query(uri, null, selection, selectionArgs, null)) {
             if (cursor != null && cursor.moveToNext()) {
                 int pathIndex = cursor.getColumnIndex(MediaStore.Audio.Media.DATA);
                 if (pathIndex > -1) {
                     return cursor.getString(pathIndex);
                 }
-            }
-        } finally {
-            if (cursor != null) {
-                cursor.close();
             }
         }
         return null;

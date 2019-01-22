@@ -27,12 +27,7 @@ public abstract class BaseListFragment<T> extends BaseLazyLoadFragment {
         // 初始化通用布局
         mCommonLayout = V.f(rootView, R.id.common_layout);
         mCommonLayout.setContentLayoutId(getContentLayoutId());
-        mCommonLayout.setOnErrorClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mLoadMoreComponent.reload();
-            }
-        });
+        mCommonLayout.setOnErrorClickListener(v -> mLoadMoreComponent.reload());
         // 初始化分页加载列表
         mCommonLayout.showContent();
         View view = mCommonLayout.getContentView();

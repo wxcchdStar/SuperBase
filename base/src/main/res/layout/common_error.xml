@@ -13,6 +13,6 @@
         android:padding="16dp"
         android:text="@string/common_connection_error"
         android:textColor="#343434"
-        android:textSize="14dp" />
+        android:textSize="14sp" />
 
 </FrameLayout>

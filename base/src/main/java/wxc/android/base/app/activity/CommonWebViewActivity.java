@@ -71,12 +71,10 @@ public class CommonWebViewActivity extends BaseActivity {
     @SuppressLint({"SetJavaScriptEnabled", "ClickableViewAccessibility"})
     private void setupWebView() {
         WebSettings webSettings = mWebView.getSettings();
-        webSettings.setLightTouchEnabled(false);
         webSettings.setNeedInitialFocus(false);
         webSettings.setJavaScriptEnabled(true);
         webSettings.setSupportZoom(true);
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
-        webSettings.setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
         webSettings.setUseWideViewPort(false);
         webSettings.setLoadWithOverviewMode(true);
         mWebView.setBackgroundColor(Color.WHITE);
@@ -92,15 +90,12 @@ public class CommonWebViewActivity extends BaseActivity {
             }
         });
         // 修复WebView焦点Bug
-        mWebView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (!v.hasFocus()) {
-                    v.clearFocus();
-                    v.requestFocusFromTouch();
-                }
-                return false;
+        mWebView.setOnTouchListener((v, event) -> {
+            if (!v.hasFocus()) {
+                v.clearFocus();
+                v.requestFocusFromTouch();
             }
+            return false;
         });
         mWebView.requestFocusFromTouch();
     }

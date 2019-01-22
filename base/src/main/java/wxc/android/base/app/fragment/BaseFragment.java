@@ -17,7 +17,7 @@ import wxc.android.base.app.presenter.linker.FragmentLinker;
 
 public abstract class BaseFragment extends RxFragment {
 
-    private FragmentLinker mLinker = new FragmentLinker();
+    private final FragmentLinker mLinker = new FragmentLinker();
 
     @Override
     public void onAttach(Context context) {

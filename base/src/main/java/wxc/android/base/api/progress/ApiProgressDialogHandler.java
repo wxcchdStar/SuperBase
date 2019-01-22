@@ -45,12 +45,7 @@ public class ApiProgressDialogHandler extends Handler {
             mDialog.setCancelable(mCancelable);
 
             if (mCancelable) {
-                mDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        mProgressCancelListener.onDismissProgress();
-                    }
-                });
+                mDialog.setOnDismissListener(dialog -> mProgressCancelListener.onDismissProgress());
             }
 
             try {

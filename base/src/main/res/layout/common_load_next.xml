@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -11,7 +12,8 @@
         android:gravity="center"
         android:text="@string/common_connection_error"
         android:textSize="12dp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        tools:ignore="SpUsage" />
 
     <LinearLayout
         android:id="@id/load_ing"
@@ -36,7 +38,8 @@
             android:gravity="center"
             android:text="@string/common_load_next"
             android:textColor="#8c8c8c"
-            android:textSize="12dp" />
+            android:textSize="12dp"
+            tools:ignore="SpUsage" />
 
     </LinearLayout>
 

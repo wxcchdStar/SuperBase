@@ -11,13 +11,13 @@ import java.io.File;
 
 public class AppUtils {
 
-    public static int getVersionCode(Context context) {
-        int versionCode = -1;
+    public static long getVersionCode(Context context) {
+        long versionCode = -1;
         try {
             String packageName = context.getPackageName();
             PackageManager pm = context.getPackageManager();
             PackageInfo packageInfo = pm.getPackageInfo(packageName, PackageManager.GET_META_DATA);
-            versionCode = packageInfo.versionCode;
+            versionCode = packageInfo.getLongVersionCode();
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }

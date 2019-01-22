@@ -1,7 +1,5 @@
 package wxc.android.base.app.presenter;
 
-import android.view.View;
-
 import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;

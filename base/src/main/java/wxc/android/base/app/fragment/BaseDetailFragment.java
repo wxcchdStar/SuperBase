@@ -19,12 +19,7 @@ public abstract class BaseDetailFragment extends BaseLazyLoadFragment {
         View view = inflater.inflate(getLayoutId(), container, false);
         mCommonLayout = V.f(view, R.id.common_layout);
         mCommonLayout.setContentLayoutId(getContentLayoutId());
-        mCommonLayout.setOnErrorClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requestDetail();
-            }
-        });
+        mCommonLayout.setOnErrorClickListener(v -> requestDetail());
         return view;
     }
 

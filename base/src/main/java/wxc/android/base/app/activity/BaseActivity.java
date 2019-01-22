@@ -20,7 +20,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 
     protected Toolbar mToolbar;
 
-    private ActivityLinker mLinker = new ActivityLinker();
+    private final ActivityLinker mLinker = new ActivityLinker();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

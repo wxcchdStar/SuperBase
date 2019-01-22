@@ -1,5 +1,6 @@
 package wxc.android.base.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import androidx.viewpager.widget.ViewPager;
 import android.util.AttributeSet;
@@ -20,6 +21,7 @@ public class NoSwipeableViewPager extends ViewPager {
         return false;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         return false;

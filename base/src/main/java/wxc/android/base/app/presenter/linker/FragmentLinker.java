@@ -29,7 +29,7 @@ public class FragmentLinker extends BaseFragmentPresenter {
     private static final int ON_DETACH = 11;
     private static final int ON_SAVE_STATE = 12;
 
-    private ArrayList<BaseFragmentPresenter> mFragmentCallbacks = new ArrayList<>();
+    private final ArrayList<BaseFragmentPresenter> mFragmentCallbacks = new ArrayList<>();
 
     // 只有被@Presenter标注的BasePresenter才能与Activity生命周期关联
     public void register(BaseFragment source) {

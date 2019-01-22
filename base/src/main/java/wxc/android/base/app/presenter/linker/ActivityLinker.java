@@ -23,7 +23,7 @@ public class ActivityLinker extends BaseActivityPresenter {
     private static final int ON_DESTROY = 6;
     private static final int ON_SAVE_STATE = 7;
 
-    private ArrayList<BaseActivityPresenter> mActivityCallbacks = new ArrayList<>();
+    private final ArrayList<BaseActivityPresenter> mActivityCallbacks = new ArrayList<>();
 
     // 只有被@Presenter标注的BasePresenter才能与Activity生命周期关联
     public void register(BaseActivity source) {
