@@ -38,7 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:launchMode="singleTop" />
         <activity android:name=".ui.music.MusicRankingListActivity" />
         <activity android:name=".ui.music.MusicRankingDetailActivity" />

@@ -24,8 +24,16 @@ public abstract class BaseMainWithBottomBarActivity extends BaseActivity impleme
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initBottomBar(savedInstanceState);
+        initBottomBar();
         initViewPager();
+        // Activity重建时恢复当前选择的页面
+        if (savedInstanceState != null) {
+            int currentPosition = savedInstanceState.getInt(ARGS_CURRENT_POSITION, 0);
+            TabLayout.Tab currentTab = mBottomBar.getTabAt(currentPosition);
+            if (currentTab != null) {
+                currentTab.select();
+            }
+        }
     }
 
     private void initViewPager() {
@@ -34,18 +42,10 @@ public abstract class BaseMainWithBottomBarActivity extends BaseActivity impleme
         mViewPager.setAdapter(initPagerAdapter());
     }
 
-    private void initBottomBar(Bundle savedInstanceState) {
+    private void initBottomBar() {
         mBottomBar = V.f(this, getBottomBarId());
         initBottomItems();
         mBottomBar.addOnTabSelectedListener(this);
-        // Activity重建时回复当前选择的页面
-        if (savedInstanceState != null) {
-            int currentPosition = savedInstanceState.getInt(ARGS_CURRENT_POSITION, 0);
-            TabLayout.Tab currentTab = mBottomBar.getTabAt(currentPosition);
-            if (currentTab != null) {
-                currentTab.select();
-            }
-        }
     }
 
     protected abstract int getViewPagerId();
@@ -56,22 +56,10 @@ public abstract class BaseMainWithBottomBarActivity extends BaseActivity impleme
 
     protected abstract BaseMainPagerAdapter initPagerAdapter();
 
-    protected boolean isAllowTabSelected(int position) {
-        return true;
-    }
-
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
         if (mViewPager != null) {
             int position = tab.getPosition();
-            if (!isAllowTabSelected(position)) {
-                int currentPosition = mViewPager.getCurrentItem();
-                TabLayout.Tab lastTab = mBottomBar.getTabAt(currentPosition);
-                if (lastTab != null) {
-                    lastTab.select();
-                }
-                return;
-            }
             mViewPager.setCurrentItem(position, false);
         }
     }
