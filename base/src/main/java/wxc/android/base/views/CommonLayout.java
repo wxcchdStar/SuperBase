@@ -56,9 +56,9 @@ public class CommonLayout extends FrameLayout {
         if (mEmptyStub != null) return;
 
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CommonLayout);
-        mEmptyLayoutId = ta.getResourceId(R.styleable.CommonLayout_layout_empty, 0);
-        mErrorLayoutId = ta.getResourceId(R.styleable.CommonLayout_layout_error, 0);
-        mLoadingLayoutId = ta.getResourceId(R.styleable.CommonLayout_layout_loading, 0);
+        mEmptyLayoutId = ta.getResourceId(R.styleable.CommonLayout_layout_empty, R.layout.common_empty);
+        mErrorLayoutId = ta.getResourceId(R.styleable.CommonLayout_layout_error, R.layout.common_error);
+        mLoadingLayoutId = ta.getResourceId(R.styleable.CommonLayout_layout_loading, R.layout.common_loading);
         mContentLayoutId = ta.getResourceId(R.styleable.CommonLayout_layout_content, 0);
         ta.recycle();
 
