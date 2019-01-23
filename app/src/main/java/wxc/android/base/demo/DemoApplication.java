@@ -8,15 +8,17 @@ import com.squareup.leakcanary.LeakCanary;
 
 import timber.log.Timber;
 
-public class MApplication extends Application {
+public class DemoApplication extends Application {
 
     @Override
     public void onCreate() {
         super.onCreate();
-        // init Timber
-        Timber.plant(new Timber.DebugTree());
-        // init BlockCanary
-        BlockCanary.install(this, new BlockCanaryContext()).start();
+        if (BuildConfig.DEBUG) {
+            // init Timber
+            Timber.plant(new Timber.DebugTree());
+            // init BlockCanary
+            BlockCanary.install(this, new BlockCanaryContext()).start();
+        }
         // init
         if (!LeakCanary.isInAnalyzerProcess(this)) {
             LeakCanary.install(this);
