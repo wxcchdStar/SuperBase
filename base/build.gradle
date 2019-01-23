@@ -45,15 +45,6 @@ dependencies {
     api 'com.github.tbruyelle:rxpermissions:0.10.2'
     // RxBinding
     api 'com.jakewharton.rxbinding3:rxbinding:3.0.0-alpha2'
-    api 'com.jakewharton.rxbinding3:rxbinding-core:3.0.0-alpha2'
-    api 'com.jakewharton.rxbinding3:rxbinding-appcompat:3.0.0-alpha2'
-    api 'com.jakewharton.rxbinding3:rxbinding-drawerlayout:3.0.0-alpha2'
-    api 'com.jakewharton.rxbinding3:rxbinding-leanback:3.0.0-alpha2'
-    api 'com.jakewharton.rxbinding3:rxbinding-recyclerview:3.0.0-alpha2'
-    api 'com.jakewharton.rxbinding3:rxbinding-slidingpanelayout:3.0.0-alpha2'
-    api 'com.jakewharton.rxbinding3:rxbinding-swiperefreshlayout:3.0.0-alpha2'
-    api 'com.jakewharton.rxbinding3:rxbinding-viewpager:3.0.0-alpha2'
-    api 'com.jakewharton.rxbinding3:rxbinding-material:3.0.0-alpha2'
     // Dagger
     api 'com.google.dagger:dagger:2.21'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.21'
