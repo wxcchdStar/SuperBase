@@ -13,7 +13,7 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
-    <style name="SplashTheme" parent="AppTheme">
+    <style name="BaseSplashTheme" parent="AppTheme">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowBackground">@android:color/white</item>
     </style>

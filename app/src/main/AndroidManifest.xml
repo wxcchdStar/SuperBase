@@ -28,14 +28,18 @@
             android:value="portrait|landscape" />
 
         <activity
-            android:name=".ui.MainActivity"
-            android:launchMode="singleTask">
+            android:name=".ui.others.SplashActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.MainActivity"
+            android:launchMode="singleTop" />
         <activity android:name=".ui.music.MusicRankingListActivity" />
         <activity android:name=".ui.music.MusicRankingDetailActivity" />
 
