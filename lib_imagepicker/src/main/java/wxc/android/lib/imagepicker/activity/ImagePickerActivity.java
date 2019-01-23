@@ -29,7 +29,7 @@ import wxc.android.base.app.activity.BaseActivity;
 import wxc.android.base.rx.RxBus;
 import wxc.android.base.rx.SimpleObserver;
 import wxc.android.base.utils.V;
-import wxc.android.base.view.ToastUtils;
+import wxc.android.base.views.ToastUtils;
 import wxc.android.lib.imagepicker.ImagePicker;
 import wxc.android.lib.imagepicker.ImagePreview;
 import wxc.android.lib.imagepicker.R;

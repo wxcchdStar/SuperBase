@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import wxc.android.base.R;
 import wxc.android.base.app.presenter.BaseLoadMorePresenter;
 import wxc.android.base.utils.V;
-import wxc.android.base.view.BaseQuickAdapter;
-import wxc.android.base.view.CommonLayout;
+import wxc.android.base.views.BaseQuickAdapter;
+import wxc.android.base.views.CommonLayout;
 
 public abstract class BaseListFragment<T> extends BaseLazyLoadFragment {
 

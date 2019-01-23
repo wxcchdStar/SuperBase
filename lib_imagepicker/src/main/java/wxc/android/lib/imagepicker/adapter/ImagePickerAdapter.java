@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 import wxc.android.base.image.ImageLoader;
 import wxc.android.base.rx.RxBus;
-import wxc.android.base.view.BaseQuickAdapter;
-import wxc.android.base.view.ToastUtils;
+import wxc.android.base.views.BaseQuickAdapter;
+import wxc.android.base.views.ToastUtils;
 import wxc.android.lib.imagepicker.ImagePreview;
 import wxc.android.lib.imagepicker.R;
 import wxc.android.lib.imagepicker.model.ImageFolder;

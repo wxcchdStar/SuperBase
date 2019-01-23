@@ -1,7 +1,7 @@
 package wxc.android.base.api.rx;
 
 import io.reactivex.disposables.Disposable;
-import wxc.android.base.view.CommonLayout;
+import wxc.android.base.views.CommonLayout;
 
 public class ApiCommLayoutObserver<T> extends ApiObserver<T> {
 

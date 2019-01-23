@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import wxc.android.base.app.activity.BaseActivity;
 import wxc.android.base.image.ImageLoader;
 import wxc.android.base.utils.V;
-import wxc.android.base.view.BaseQuickAdapter;
+import wxc.android.base.views.BaseQuickAdapter;
 
 public class MainActivity extends BaseActivity {
     private static final int REQUEST_CODE = 233;

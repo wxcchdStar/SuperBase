@@ -5,7 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import wxc.android.base.R;
 import wxc.android.base.utils.V;
-import wxc.android.base.view.CommonLayout;
+import wxc.android.base.views.CommonLayout;
 
 public abstract class BaseDetailActivity extends BaseActivity {
 

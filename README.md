@@ -10,4 +10,4 @@
 2. `app`下是对Activity、Fragment等页面相关的类的封装，旨在简化开发、提高松耦合。
 3. `manager`下仅包含`ImageLoader`、`RxBus`。`ImageLoader`用于加载本地、网络图片；`RxBus`用于替换`EventBus`、`Otto`。
 4. `utils`下是各种工具类。
-5. `view`下是各种自定义View
+5. `views`下是各种自定义View

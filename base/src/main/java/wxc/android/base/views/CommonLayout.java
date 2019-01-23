@@ -1,4 +1,4 @@
-package wxc.android.base.view;
+package wxc.android.base.views;
 
 import android.annotation.TargetApi;
 import android.content.Context;

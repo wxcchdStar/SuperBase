@@ -9,7 +9,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import wxc.android.base.R;
 import wxc.android.base.utils.V;
-import wxc.android.base.view.ToastUtils;
+import wxc.android.base.views.ToastUtils;
 
 public abstract class BaseMainWithBottomBarActivity extends BaseActivity implements TabLayout.OnTabSelectedListener {
     private static final int EXIT_TIPS_INTERVAL = 3000;

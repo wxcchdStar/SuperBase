@@ -9,7 +9,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import wxc.android.base.api.ApiResultException;
 import wxc.android.base.demo.R;
-import wxc.android.base.view.ToastUtils;
+import wxc.android.base.views.ToastUtils;
 
 public class ApiUtils {
 

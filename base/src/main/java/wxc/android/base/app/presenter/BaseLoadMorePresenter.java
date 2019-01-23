@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import wxc.android.base.R;
-import wxc.android.base.view.BaseQuickAdapter;
-import wxc.android.base.view.CommonLayout;
+import wxc.android.base.views.BaseQuickAdapter;
+import wxc.android.base.views.CommonLayout;
 
 // TODO: 改造成不依赖CommonLayout
 public abstract class BaseLoadMorePresenter<T> {

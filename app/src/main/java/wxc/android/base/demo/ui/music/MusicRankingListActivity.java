@@ -19,7 +19,7 @@ import wxc.android.base.demo.R;
 import wxc.android.base.demo.api.Api;
 import wxc.android.base.demo.model.MusicRankingBean;
 import wxc.android.base.image.ImageLoader;
-import wxc.android.base.view.BaseQuickAdapter;
+import wxc.android.base.views.BaseQuickAdapter;
 
 public class MusicRankingListActivity extends BaseListActivity<MusicRankingBean> {
 
