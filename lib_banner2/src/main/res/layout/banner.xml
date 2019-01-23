@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bannerContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false">
+
+    <com.mi.global.jointly.mvp.ui.widget.banner.view.BannerViewPager
+        android:id="@+id/vp_banner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false" />
+
+
+</RelativeLayout>
