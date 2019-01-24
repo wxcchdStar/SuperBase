@@ -32,11 +32,13 @@ public class FileUtils {
             }
             // DownloadsProvider
             else if (isDownloadsDocument(uri)) {
-
                 final String id = DocumentsContract.getDocumentId(uri);
+                // 处理id是raw:/storage/emulated/0/Download/IMG_20180827_151351.jpg的情况
+                if (id != null && id.startsWith("raw:")) {
+                    return id.replace("row:", "");
+                }
                 final Uri contentUri = ContentUris.withAppendedId(
                         Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
-
                 return getDataColumn(context, contentUri, null, null);
             }
             // MediaProvider
