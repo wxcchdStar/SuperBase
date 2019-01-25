@@ -87,6 +87,8 @@ public class FileUtils {
                     return cursor.getString(pathIndex);
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
