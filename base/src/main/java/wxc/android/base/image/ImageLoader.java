@@ -1,5 +1,7 @@
 package wxc.android.base.image;
 
+import android.app.Activity;
+import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -26,7 +28,7 @@ public class ImageLoader {
     }
 
     public void load(ImageView view, String uri) {
-        if (view == null || uri == null) return;
+        if (view == null || uri == null || !isValidContext(view.getContext())) return;
 
         view.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
@@ -37,7 +39,7 @@ public class ImageLoader {
     }
 
     public void loadPreview(ImageView view, String uri) {
-        if (view == null || uri == null) return;
+        if (view == null || uri == null || !isValidContext(view.getContext())) return;
 
         view.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
@@ -64,4 +66,14 @@ public class ImageLoader {
                 .transforms(new CenterCrop(), new RoundedCorners(radius));
     }
 
+    private static boolean isValidContext(final Context context) {
+        if (context == null) {
+            return false;
+        }
+        if (context instanceof Activity) {
+            final Activity activity = (Activity) context;
+            return !activity.isDestroyed() && !activity.isFinishing();
+        }
+        return true;
+    }
 }
