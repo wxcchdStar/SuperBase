@@ -5,6 +5,7 @@ import java.util.List;
 import androidx.recyclerview.widget.RecyclerView;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import timber.log.Timber;
 import wxc.android.base.R;
 import wxc.android.base.views.BaseQuickAdapter;
 import wxc.android.base.views.CommonLayout;
@@ -90,6 +91,7 @@ public abstract class BaseLoadMorePresenter<T> {
     protected Consumer<Throwable> mFailedAction = new Consumer<Throwable>() {
         @Override
         public void accept(Throwable t) {
+            Timber.w(t);
             if (mPage == mFirstPage) {
                 mCommonLayout.showError();
             } else {
