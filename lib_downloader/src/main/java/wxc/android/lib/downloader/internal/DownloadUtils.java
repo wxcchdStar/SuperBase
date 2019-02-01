@@ -1,5 +1,6 @@
 package wxc.android.lib.downloader.internal;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -79,6 +80,7 @@ public class DownloadUtils {
     /**
      * 判断指定目录是否有足够的存储空间
      */
+    @SuppressLint("ObsoleteSdkInt")
     public static boolean isStorageEnough(String dirPath, long neededSize) {
         if (dirPath == null) return false;
 

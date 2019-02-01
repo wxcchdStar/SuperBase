@@ -137,7 +137,7 @@ public class CommonDialog implements View.OnClickListener {
         if (params == null) {
             throw new IllegalArgumentException("DialogParams is NULL!");
         }
-        this.mParams = params;
+        mParams = params;
     }
 
     public boolean isShowing() {
@@ -159,7 +159,7 @@ public class CommonDialog implements View.OnClickListener {
         /**
          * Dialog的按钮点击监听事件
          *
-         * @param dialog
+         * @param dialog dialog
          * @param which  识别哪个按钮被点击
          *               DialogInterface.BUTTON_NEGATIVE表示左边按钮
          *               DialogInterface.BUTTON_POSITIVE表示右边按钮

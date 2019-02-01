@@ -129,7 +129,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseQuick
         notifyItemRangeChanged(getItemCount() - 1 - getFooterViewCount(), 1);
     }
 
-    // TODO: 使用notifyItemRangeChanged替代notifyDataSetChanged
+    // TODO 使用notifyItemRangeChanged替代notifyDataSetChanged
     public void addData(List<T> data) {
         if (data != null && !data.isEmpty()) {
 //            int oldSize = getItemCount() - getFooterViewCount();

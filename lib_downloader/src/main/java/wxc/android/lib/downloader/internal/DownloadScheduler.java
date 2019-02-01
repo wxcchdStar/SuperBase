@@ -7,7 +7,6 @@ import android.content.ServiceConnection;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import timber.log.Timber;
 import wxc.android.lib.downloader.DownloadListener;
 import wxc.android.lib.downloader.DownloadService;
 import wxc.android.lib.downloader.DownloadTask;
@@ -40,7 +40,7 @@ public class DownloadScheduler implements DownloadListener {
     private ServiceConnection mConnection = new ServiceConnection() {
 
         public void onServiceConnected(ComponentName className, IBinder service) {
-            Log.d("DownloadScheduler", "onServiceConnected");
+            Timber.d("onServiceConnected");
 
             mIsServiceConnected = true;
             mDownloadBinder = (DownloadService.DownloadBinder) service;
@@ -48,7 +48,7 @@ public class DownloadScheduler implements DownloadListener {
         }
 
         public void onServiceDisconnected(ComponentName className) {
-            Log.d("DownloadScheduler", "onServiceDisconnected");
+            Timber.d("onServiceDisconnected");
 
             mIsServiceConnected = false;
             mDownloadBinder = null;
@@ -63,7 +63,7 @@ public class DownloadScheduler implements DownloadListener {
         public void run() {
             synchronized (DownloadScheduler.this) {
                 if (mIsServiceConnected) {
-                    Log.d("DownloaderScheduler", "stop download service");
+                    Timber.d("stop download service");
                     try {
                         mContext.unbindService(mConnection);
                         Intent intent = new Intent(mContext, DownloadService.class);
@@ -78,9 +78,9 @@ public class DownloadScheduler implements DownloadListener {
 
     public DownloadScheduler(Context ctx) {
         mContext = ctx.getApplicationContext();
-        mInitTasks = Collections.synchronizedList(new ArrayList<String>(DownloadConst.DEFAULT_MAX_TASK_COUNT));
-        mCurrentTasks = Collections.synchronizedList(new ArrayList<String>(DownloadConst.DEFAULT_MAX_TASK_COUNT));
-        mWaitingTasks = Collections.synchronizedList(new ArrayList<String>());
+        mInitTasks = Collections.synchronizedList(new ArrayList<>(DownloadConst.DEFAULT_MAX_TASK_COUNT));
+        mCurrentTasks = Collections.synchronizedList(new ArrayList<>(DownloadConst.DEFAULT_MAX_TASK_COUNT));
+        mWaitingTasks = Collections.synchronizedList(new ArrayList<>());
         mTaskMap = new HashMap<>();
         mDownloaderMap = new HashMap<>();
         mHandler = new Handler(Looper.getMainLooper());
@@ -106,7 +106,7 @@ public class DownloadScheduler implements DownloadListener {
                     task.notifyListener();
                 }
 
-                Log.d("DownloadScheduler", "service connected: " + mIsServiceConnected);
+                Timber.d( "service connected: %s", mIsServiceConnected);
                 if (!mIsServiceConnected) {
                     doBindService();
                 } else {
@@ -114,7 +114,7 @@ public class DownloadScheduler implements DownloadListener {
                 }
                 return true;
             } else {
-                Log.w("DownloadScheduler", "Task(" + task.mId + ") existed! >>> " + task.mDownloadUrl);
+                Timber.d( "Task(" + task.mId + ") existed! >>> " + task.mDownloadUrl);
                 return false;
             }
         }
@@ -143,8 +143,8 @@ public class DownloadScheduler implements DownloadListener {
 
     // 方法是运行在UI线程中
     private synchronized void pollingDownloadTasks() {
-        Log.d("DownloadScheduler", "pollingDownloadTasks run at " + Thread.currentThread());
-        Log.d("DownloadScheduler", "pre polling, cur mSize: " + mCurrentTasks.size() + ", wait mSize: " + mWaitingTasks.size());
+        Timber.d("pollingDownloadTasks run at %s", Thread.currentThread());
+        Timber.d("pre polling, cur mSize: " + mCurrentTasks.size() + ", wait mSize: " + mWaitingTasks.size());
 
         while (mCurrentTasks.size() < DownloadConst.DEFAULT_MAX_TASK_COUNT && !mInitTasks.isEmpty()) {
             executeDownload(mInitTasks.remove(0));
@@ -179,7 +179,7 @@ public class DownloadScheduler implements DownloadListener {
             synchronized (this) {
                 mCurrentTasks.remove(taskId);
                 mTaskMap.remove(taskId);
-                Log.d("DownloadScheduler", "移除Task:" + taskId);
+                Timber.d( "移除Task: %s", taskId);
                 if (mTaskMap.isEmpty()) {
                     doUnbindService();
                 } else {

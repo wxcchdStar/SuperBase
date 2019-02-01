@@ -12,7 +12,7 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
-import java.io.File;
+import wxc.android.base.utils.AppUtils;
 
 public class UpdateVersionService extends IntentService {
     private static final String ARGS_DOWNLOAD_URL = "download_url";
@@ -79,8 +79,9 @@ public class UpdateVersionService extends IntentService {
                     case DownloadManager.STATUS_RUNNING:
                         break;
                     case DownloadManager.STATUS_SUCCESSFUL:
+                        // TODO Android N 需要注意file://限制
                         String downloadPath = cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
-                        installApk(downloadPath);
+                        AppUtils.installApk(context, Uri.parse(downloadPath));
                         unregisterReceiver(this);
                         stopSelf();
                         break;
@@ -94,19 +95,5 @@ public class UpdateVersionService extends IntentService {
             }
         }
 
-        private void installApk(String downloadPath) {
-            File file = new File(downloadPath);
-            Intent intent = new Intent();
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.setAction(android.content.Intent.ACTION_VIEW);
-            if (downloadPath.startsWith("file://")) {
-                intent.setDataAndType(Uri.parse(downloadPath),
-                        "application/vnd.android.package-archive");
-            } else {
-                intent.setDataAndType(Uri.fromFile(file),
-                        "application/vnd.android.package-archive");
-            }
-            startActivity(intent);
-        }
     }
 }

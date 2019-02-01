@@ -1,12 +1,12 @@
 package wxc.android.lib.downloader;
 
 import android.content.Context;
-import android.util.Log;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import timber.log.Timber;
 import wxc.android.lib.downloader.internal.DownloadUtils;
 
 public class DownloadTask {
@@ -85,7 +85,7 @@ public class DownloadTask {
                 }
             }
             mDownloadListeners.add(new WeakReference<>(listener));
-            Log.d("DownloadTask", "addDownloadListener: " + listener);
+            Timber.d("addDownloadListener: %s", listener);
         }
     }
 
@@ -94,7 +94,7 @@ public class DownloadTask {
             for (WeakReference<DownloadListener> listenerRef : mDownloadListeners) {
                 DownloadListener aListener = listenerRef.get();
                 if (aListener != null && aListener == listener) {
-                    Log.d("DownloadTask", "removeDownloadListener: " + listener);
+                    Timber.d( "removeDownloadListener: %s", listener);
                     mDownloadListeners.remove(listenerRef);
                     return;
                 }
@@ -111,7 +111,7 @@ public class DownloadTask {
             for (WeakReference<DownloadListener> listenerRef : mDownloadListeners) {
                 DownloadListener aListener = listenerRef.get();
                 if (aListener != null) {
-                    Log.d("DownloadTask", "notifyListener: " + aListener);
+                    Timber.d("notifyListener: %s", aListener);
                     aListener.onDownload(this);
                 }
             }

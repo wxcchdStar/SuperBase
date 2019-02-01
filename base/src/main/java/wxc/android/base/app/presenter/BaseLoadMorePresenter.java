@@ -10,7 +10,7 @@ import wxc.android.base.R;
 import wxc.android.base.views.BaseQuickAdapter;
 import wxc.android.base.views.CommonLayout;
 
-// TODO: 改造成不依赖CommonLayout
+// TODO 改造成不依赖CommonLayout
 public abstract class BaseLoadMorePresenter<T> {
 
     protected int mPage;

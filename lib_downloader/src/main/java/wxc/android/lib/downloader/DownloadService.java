@@ -6,6 +6,8 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
+import timber.log.Timber;
+
 public class DownloadService extends Service {
 
     private final DownloadBinder mBinder = new DownloadBinder();
@@ -33,12 +35,12 @@ public class DownloadService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d("DownloadService", "onCreate");
+        Timber.d( "onCreate");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("DownloadService", "onDestroy");
+        Timber.d( "onDestroy");
     }
 }

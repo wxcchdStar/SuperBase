@@ -6,8 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-
-import java.io.File;
+import android.os.Build;
 
 public class AppUtils {
 
@@ -36,15 +35,18 @@ public class AppUtils {
         return versionName;
     }
 
-    public static void installApk(Context context, File file) {
-        if (file == null) return;
+    public static void installApk(Context context, Uri apkUri) {
+        if (context == null || apkUri == null) return;
 
         Intent intent = new Intent();
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
         intent.setAction(android.content.Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+        intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
         context.startActivity(intent);
     }
 
