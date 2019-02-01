@@ -71,6 +71,9 @@ dependencies {
     debugApi 'com.squareup.leakcanary:leakcanary-android:1.6.3'
     releaseApi 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
     debugApi 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
+    // 研发助手
+    debugApi 'com.didichuxing.doraemonkit:doraemonkit:1.0.5'
+    releaseApi 'com.didichuxing.doraemonkit:doraemonkit-no-op:1.0.5'
     // AutoDispose
 //    api 'com.uber.autodispose:autodispose:1.1.0'
 //    api 'com.uber.autodispose:autodispose-android:1.1.0'
