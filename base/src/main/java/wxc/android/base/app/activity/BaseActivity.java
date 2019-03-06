@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import com.gyf.barlibrary.ImmersionBar;
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import wxc.android.base.R;
@@ -82,7 +83,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         mLinker.onSaveInstanceState(outState);
     }

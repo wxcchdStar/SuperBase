@@ -2,12 +2,11 @@ package wxc.android.base.demo.api;
 
 import java.util.List;
 
-import retrofit2.http.Field;
-import retrofit2.http.Query;
-import wxc.android.base.api.model.ApiResult;
-import wxc.android.base.api.ApiClient;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
+import wxc.android.base.api.ApiClient;
+import wxc.android.base.api.model.ApiResult;
 import wxc.android.base.demo.model.MusicRankingBean;
 import wxc.android.base.demo.model.MusicRankingDetailBean;
 

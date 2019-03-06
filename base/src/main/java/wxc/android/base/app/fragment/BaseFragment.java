@@ -20,7 +20,7 @@ public abstract class BaseFragment extends RxFragment {
     private final FragmentLinker mLinker = new FragmentLinker();
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         mLinker.register(this);
         mLinker.onAttach(context);
